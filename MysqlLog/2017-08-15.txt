@@ -1,0 +1,52 @@
+2017-08-15 09:21:10
+a:5:{s:3:"aid";N;s:7:"account";N;s:3:"sql";s:114:"UPDATE `ad_admin` SET `login_ip` = '10.35.128.28', `login_time` = 1502760070, `login_count` = 231
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 09:21:10";}
+
+2017-08-15 09:46:40
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:221:"UPDATE `ad_admin` SET `id` = '1', `account` = NULL, `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2,3', `mobile` = '18617082376', `email` = 'test3@qq.com', `create_time` = 1502761600
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 09:46:40";}
+
+2017-08-15 09:50:41
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:222:"UPDATE `ad_admin` SET `id` = '1', `account` = 'test3', `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2', `mobile` = '18617082376', `email` = 'test3@qq.com', `create_time` = 1502761841
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 09:50:41";}
+
+2017-08-15 09:51:28
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:224:"UPDATE `ad_admin` SET `id` = '1', `account` = 'test3', `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2,3', `mobile` = '18617082376', `email` = 'test3@qq.com', `create_time` = 1502761888
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 09:51:28";}
+
+2017-08-15 09:53:22
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:224:"UPDATE `ad_admin` SET `id` = '1', `account` = 'test3', `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2,3', `mobile` = '18617082376', `email` = 'test3@qq.com', `create_time` = 1502762002
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 09:53:22";}
+
+2017-08-15 09:54:24
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:224:"UPDATE `ad_admin` SET `id` = '1', `account` = 'test3', `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2,3', `mobile` = '18617082376', `email` = 'test3@qq.com', `create_time` = 1502762064
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 09:54:24";}
+
+2017-08-15 09:55:07
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:224:"UPDATE `ad_admin` SET `id` = '1', `account` = 'test3', `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2,3', `mobile` = '18617082376', `email` = 'test3@qq.com', `create_time` = 1502762107
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 09:55:07";}
+
+2017-08-15 09:59:20
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:224:"UPDATE `ad_admin` SET `id` = '1', `account` = 'admin', `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2,3', `mobile` = '18617082376', `email` = 'test3@qq.com', `create_time` = 1502762360
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 09:59:20";}
+
+2017-08-15 10:01:45
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:51:"DELETE FROM `ad_auth_group_access`
+WHERE `uid` = 10";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 10:01:45";}
+
+2017-08-15 10:01:45
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:38:"DELETE FROM `ad_admin`
+WHERE `id` = 10";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 10:01:45";}
+
+2017-08-15 10:07:28
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:223:"UPDATE `ad_admin` SET `id` = '9', `account` = 'test3', `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2,3', `mobile` = '18617082376', `email` = 'sdfa@qq.com', `create_time` = 1502762848
+WHERE `id` = '9'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 10:07:28";}
+
+2017-08-15 10:07:53
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:223:"UPDATE `ad_admin` SET `id` = '9', `account` = 'test3', `password` = 'e10adc3949ba59abbe56e057f20f883e', `advertisers` = '1,2,3', `mobile` = '18617082376', `email` = 'sdfa@qq.com', `create_time` = 1502762873
+WHERE `id` = '9'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 10:07:53";}
+
+2017-08-15 14:19:42
+a:5:{s:3:"aid";N;s:7:"account";N;s:3:"sql";s:114:"UPDATE `ad_admin` SET `login_ip` = '10.35.128.28', `login_time` = 1502777982, `login_count` = 232
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-15 14:19:42";}
+

@@ -1,0 +1,121 @@
+<div style="margin:0 20px;">
+    <br/>
+    <div class="grid">
+        <!-- 个人信息 -->
+        <div class="grid-item">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">我的个人信息</div>
+                </div>
+                <div class="panel-body" style="padding:8px;line-height:1.8">
+                    您好，<?=$this->session->userdata('account')?><br />
+                    最后登录时间：<?=date('Y-m-d H:i:s',$this->session->userdata('login_time'))?><br />
+                    最后登录IP：<?=$this->session->userdata('login_ip')?><br />
+                </div>
+            </div>
+        </div>
+        <!-- 服务器参数 -->
+        <div class="grid-item">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">服务器参数</div>
+                </div>
+                <div class="panel-body" style="padding:8px;line-height:1.8">
+                    服务器域名/IP地址：<?=$_SERVER['SERVER_NAME']?>(<?=DIRECTORY_SEPARATOR=='/'?$_SERVER['SERVER_ADDR']:@gethostbyname($_SERVER['SERVER_NAME'])?>)<br />
+                    服务器标识：<?=$sysinfo['win_n']!=''?$sysinfo['win_n']:php_uname()?><br />
+                    服务器操作系统：<?=$os[0]?> &nbsp;内核版本：<?=DIRECTORY_SEPARATOR=='/'?$os[2]:$os[1]?><br />
+                    服务器解译引擎：<?=$_SERVER['SERVER_SOFTWARE']?> <br />
+                    服务器语言：<?=getenv("HTTP_ACCEPT_LANGUAGE")?> <br />
+                    服务器端口：<?=$_SERVER['SERVER_PORT']?> <br />
+                    服务器主机名：<?=DIRECTORY_SEPARATOR=='/'?$os[1]:$os[2]?><br />
+                    管理员邮箱：<?=$_SERVER['SERVER_ADMIN']?> <br />
+                    绝对路径：<?=dirname(__FILE__)?> <br />
+                    上传文件最大限制（upload_max_filesize）：<?=get_cfg_var('upload_max_filesize')?> <br />
+                </div>
+            </div>
+        </div>
+        <!-- 服务器实时数据 -->
+        <div class="grid-item">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">服务器实时数据</div>
+                </div>
+                <div class="panel-body" style="padding:8px;line-height:1.8">
+                    <?if($sysinfo['sysReShow']=="show"):?>
+                    服务器当前时间：<span><?=$sysinfo['stime']?></span> <br />
+                    服务器已运行时间：<span><?=$sysinfo['uptime']?></span> <br />
+                    总空间：<?=$sysinfo['DiskTotal']?>&nbsp;GB &nbsp;&nbsp;&nbsp;&nbsp;<span title="显示的是网站所在的目录的可用空间，非服务器上所有磁盘之可用空间！">可用空间</span>： <font color='#CC0000'><span><?=$sysinfo['freeSpace']?></span></font>&nbsp;GB<br />
+                    CPU型号 [<?=$sysinfo['cpu']['num']?>核]：<?=$sysinfo['cpu']['model']?> <br />
+                    内存使用状况：物理内存：共<font color='#CC0000'><?=$sysinfo['TotalMemory']?></font>, 已用<font color='#CC0000'><span><?=$sysinfo['UsedMemory']?></span></font>, 空闲<font color='#CC0000'><span><?=$sysinfo['FreeMemory']?></span></font>, 使用率<span><?=$sysinfo['memPercent']?></span> <br />
+                    <div class="progress" style="height:10px;margin-bottom:0px">
+                        <div style="width: <?=$sysinfo['memPercent']?>" role="progressbar" class="progress-bar">
+                            <span class="sr-only"><?=$sysinfo['memPercent']?></span>
+                        </div>
+                    </div>
+                    <?if($sysinfo['CachedMemory']>0):?>
+                        Cache化内存为 <span><?=$sysinfo['CachedMemory']?></span>, 使用率<span><?=$sysinfo['memCachedPercent']?></span> %   | Buffers缓冲为  <span><?=$sysinfo['Buffers']?></span>
+                        <div class="progress" style="height:10px;margin-bottom:0px">
+                            <div style="width: <?=$sysinfo['barmemCachedPercent']?>" role="progressbar" class="progress-bar progress-bar-success">
+                                <span class="sr-only"><?=$sysinfo['barmemCachedPercent']?></span>
+                            </div>
+                        </div>
+                        真实内存使用 <span><?=$sysinfo['memRealUsed']?></span>, 真实内存空闲<span><?=$sysinfo['memRealFree']?></span>, 使用率<span><?=$sysinfo['memRealPercent']?></span> %
+                        <div class="progress" style="height:10px;margin-bottom:0px">
+                            <div style="width: <?=$sysinfo['barmemRealPercent']?>" role="progressbar" class="progress-bar progress-bar-success">
+                                <span class="sr-only"><?=$sysinfo['barmemRealPercent']?></span>
+                            </div>
+                        </div>
+                    <?endif;?>
+                    <?if($sysinfo['TotalSwap']>0):?>
+                        SWAP区：共<?=$sysinfo['TotalSwap']?>, 已使用<span><?=$sysinfo['swapUsed']?></span>, 空闲<span><?=$sysinfo['swapFree']?></span>, 使用率<span><?=$sysinfo['swapPercent']?></span> %
+                        <div class="progress" style="height:10px;margin-bottom:0px">
+                            <div style="width: <?=$sysinfo['barswapPercent']?>" role="progressbar" class="progress-bar progress-bar-success">
+                                <span class="sr-only"><?=$sysinfo['barswapPercent']?></span>
+                            </div>
+                        </div>
+                    <?endif;?>
+                    系统平均负载：<span><?=$sysinfo['loadAvg']?></span>
+                    <?else:?>
+                    无法获取当前服务器实时数据
+                    <?endif;?>
+                </div>
+            </div>
+        </div>
+        <!-- 网络使用状况 -->
+        <div class="grid-item">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">网络使用状况</div>
+                </div>
+                <div class="panel-body" style="padding:8px;line-height:1.8">
+                    <?=$net_state?$net_state:'无法获取当前服务器网络使用信息'?>
+                </div>
+            </div>
+        </div>
+        <!-- 系统说明 -->
+        <div class="grid-item">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">系统说明</div>
+                </div>
+                <div class="panel-body" style="padding:8px;line-height:1.8">
+                    当前系统版本：<?=SYSTEM_VERSION?><br />
+                    Codeigniter：<?=CI_VERSION?><br />
+                    PHP：<?=phpversion()?><br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+.grid-item { width:50%; }
+</style>
+<script src="<?=base_url()?>web/test/js/plugins/masonary/masonry.pkgd.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.grid').masonry({
+        itemSelector: '.grid-item',
+        gutter: 0
+    });
+});
+</script>

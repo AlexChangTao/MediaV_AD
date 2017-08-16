@@ -1,0 +1,71 @@
+<script type="text/javascript">
+//删除
+function del(id){
+	parent.layer.confirm('请确认该组下已经没有组成员了，否则需要重新授权，真的要删除吗？', {
+		btn: ['是的','取消'], //按钮
+		shade: [0.3, '#393D49']
+	}, function(){
+		$.post("<?=base_url('admin/group_del')?>", { "id": id },function(data){
+		if(data == 1){
+			parent.layer.msg('删除成功', {icon: 1});
+			window.location.reload();
+		}else{
+			parent.layer.msg('删除失败', {icon: 2});
+		}
+	   }, "json");
+	});
+}
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+	  <h2>用户组管理</h2>
+	  <div class="breadcrumb">
+	    <li><a href="<?=base_url('admin/main')?>" class="page-action">首页</a></li>
+	    <li>角色管理</li>
+	    <li>用户组列表</li>
+	  </div>
+  </div>
+</div>
+<br/>
+<div class="ibox-content main_content_margin">
+	<?if(check_auth('admin/group_add')):?>
+	<div>
+		<a href="<?=base_url('admin/group_add')?>" class="btn btn-sm btn-primary page-action" title="添加用户组"><i class="fa fa-plus-circle"></i>&nbsp;添加用户组</a>
+	</div>
+	<?endif;?>
+	<div class="list">
+		<table class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>角色/组</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?foreach($data as $k=>$vo):?>
+				<tr>
+					<td><?=$vo['id']?></td>
+					<td><?=$vo['title']?></td>
+					<td><?=$vo['status']?'启用':'禁用';?></td>
+					<td>
+						<div class="btn-group">
+							<?if(check_auth('admin/group_edit')):?>
+							<a class="btn btn-xs btn-default page-action" title="编辑用户组" href="<?=base_url('admin/group_edit').'?id='.$vo['id']?>"><i class="fa fa-pencil-square-o"></i>&nbsp;授权/编辑</a>
+							<?endif;?>
+							<?if(check_auth('admin/group_del')):?>
+							<a class="btn btn-xs btn-default" href="javascrip:;" onclick="del(<?=$vo['id']?>);"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+							<?endif;?>
+						</div>
+					</td>
+				</tr>
+				<?endforeach;?>
+			</tbody>
+		</table>
+	</div>
+	<!-- 分页 -->
+	<div class="page">
+	<?=$page?>
+	</div>
+</div>

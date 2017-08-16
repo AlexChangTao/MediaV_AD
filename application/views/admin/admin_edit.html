@@ -1,0 +1,116 @@
+<script type="text/javascript">
+function check(){
+	var group_id = $('#group_id').val();
+	if(group_id == ''){
+		layer.tips('请选择所属用户组', '#group_id', {'tips':3});
+		return false;
+	}
+	return true;
+}
+</script>
+<link href="<?=base_url()?>web/select2/select2.css" rel="stylesheet">
+<script src="<?=base_url()?>web/select2/select2.full.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('select').select2();
+});
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>管理员管理</h2>
+    <div class="breadcrumb">
+      <li><a href="<?=base_url('admin/main')?>" class="page-action">首页</a></li>
+      <li>角色管理</li>
+      <li><a href="<?=base_url('admin/admin_list')?>" class="page-action" title="管理员管理">管理员管理</a></li>
+      <li>修改管理员</li>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="ibox-content main_content_margin">
+  <form name="myform" action="<?=base_url('admin/user_add')?>" method="post" onsubmit="return check();">
+    <div class="form-group">
+      <label>帐号</label>
+      <input type="text" name="" value="<?=$data['account']?>" class="form-control" disabled />
+      <input type="hidden" name="account" value="<?=$data['account']?>" />
+    </div>
+    <?if($this->session->userdata('aid') == _MANAGER_ID_):?>
+    <div class="form-group">
+      <label>密码</label>
+      <input type="text" name="password" value="" placeholder="密码" id="password" size="24" value="" class="form-control" />
+    </div>
+    <?endif;?>
+    <div class="form-group">
+      <label>用户组</label>
+      <select name="group_id" id="group_id" class="form-control">
+        <?if($data['group_id']):?>
+        <option value="<?=$data['group_id']?>"><?=$data['title']?></option>
+        <?endif;?>
+        <option value="">请选择所属组</option>
+        <? foreach($group as $a=>$b):?>
+        <option value="<?=$b['id']?>"><?=$b['title']?></option>
+        <? endforeach; ?>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>广告主</label>
+      <div class="checkbox">
+        <?foreach($advertisers as $k=>$v):?>
+        <label>
+          <input type="checkbox" name="advertisers[]" <?=$v['on']==1?"checked":"";?> value="<?=$v['id'];?>" /><?=$v['name'];?>&nbsp;&nbsp;
+        </label>
+        <?endforeach;?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="text" name="email" id="email" placeholder="E-mail" value="<?=$data['email']?>" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>手机号</label>
+      <input type="text" name="mobile" id="mobile" maxlength="11" placeholder="手机号" value="<?=$data['mobile']?>" class="form-control" />
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <label>最近登录IP</label>
+        <input type="text" name="" value="<?=$data['login_ip']?>" class="form-control" disabled />
+      </div>
+      <div class="form-group col-sm-6">
+        <label>登录次数</label>
+        <input type="text" name="" value="<?=$data['login_count']?>" class="form-control" disabled />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <label>最近登录时间</label>
+        <input type="text" name="" value="<?=$data['login_time']?date('Y-m-d H:i:s',$data['login_time']):'';?>" class="form-control" disabled />
+      </div>
+      <div class="form-group col-sm-6">
+        <label>创建时间</label>
+        <input type="text" name="" value="<?=date('Y-m-d H:i:s',$data['create_time']);?>" class="form-control" disabled />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>账号状态</label>
+      <div class="radio">
+        <? if($this->session->userdata('aid') == _MANAGER_ID_ || $this->session->userdata('aid') != $data['id']): ?>
+        <label class="radio-inline">
+          <input name="status" type="radio" value="1" <?if($data['status']==1){echo('checked');}?> />启用
+        </label>
+        <label class="radio-inline">
+          <input name="status" type="radio" value="0" <?if($data['status']==0){echo('checked');}?> />禁用
+        </label>
+        <? else: ?>
+        <input name="status" type="hidden" value="1" /><span><i class="fa fa-check-circle"></i>正常</span>
+        <? endif; ?>
+      </div>
+    </div>
+    <div class="form-group">
+    	<input type="hidden" name="id" value="<?=$data['id']?>" />
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary btn-sm">保 存</button>
+        <button class="btn btn-default btn-sm" onclick="if(self=='top'){history.go(-1);}else{window.parent.close_actvie_tab();};return false;">取 消</button>
+      </div>
+    </div>
+  </form>
+</div>

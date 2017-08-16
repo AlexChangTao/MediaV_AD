@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?=isset($title)?$title:'后台管理';?></title>
+    <link href="<?=base_url()?>web/test/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=base_url()?>web/test/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="<?=base_url()?>web/test/css/animate.css" rel="stylesheet">
+    <link href="<?=base_url()?>web/test/css/style.css" rel="stylesheet">
+		
+	<!-- Mainly scripts -->
+	<script src="<?=base_url()?>web/test/js/jquery-2.1.1.js"></script>
+	<script src="<?=base_url()?>web/test/js/bootstrap.min.js"></script>
+	<?if(isset($menu) && $menu):?>
+	<!-- 折叠菜单特效 -->
+	<script src="<?=base_url()?>web/test/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<!-- 自定义滚动条 -->
+	<script src="<?=base_url()?>web/test/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		
+	<!-- Custom and plugin javascript -->
+    <script src="<?=base_url()?>web/test/js/inspinia.js"></script>
+    <!-- 页面进度条 -->
+    <script src="<?=base_url()?>web/test/js/plugins/pace/pace.min.js"></script>
+	<?endif;?>
+
+	<!-- 标签切换 -->
+	<script src="<?=base_url()?>web/js/contabs.js"></script>
+	<script src="<?=base_url()?>web/js/content.js"></script>
+		
+	<!-- 弹出层 -->
+	<script src="<?=base_url()?>web/js/layer/layer.js"></script>
+
+	<style type="text/css">
+		.main_content_margin { margin: 0 20px; }
+		.fa-fw {
+		    width: 1.28571429em;
+		    text-align: center;
+		}
+	</style>
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg">
+    <div id="wrapper">
+    	<div>
+		<?
+			if(isset($menu) && $menu){
+				$data['menu'] = $menu;
+				$this->load->view('public/sidebar.html',$data);
+			}
+		?>
+		</div>

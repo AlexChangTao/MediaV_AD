@@ -1,0 +1,310 @@
+<?php
+echo <<<EOT
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{$module} - 在线接口文档 - {$action}</title>
+
+    <link rel="stylesheet" href="https://staticfile.qnssl.com/semantic-ui/2.1.6/semantic.min.css">
+    <link rel="stylesheet" href="https://staticfile.qnssl.com/semantic-ui/2.1.6/components/table.min.css">
+    <link rel="stylesheet" href="https://staticfile.qnssl.com/semantic-ui/2.1.6/components/container.min.css">
+    <link rel="stylesheet" href="https://staticfile.qnssl.com/semantic-ui/2.1.6/components/message.min.css">
+    <link rel="stylesheet" href="https://staticfile.qnssl.com/semantic-ui/2.1.6/components/label.min.css">
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body>
+
+<br /> 
+
+    <div class="ui text container" style="max-width: none !important;">
+        <div class="ui floating message">
+
+EOT;
+
+echo "<h2 class='ui header'>接口：$module</h2><br/>  <span class='ui teal tag label'>$description</span><br/ ><br/ ><span class='ui teal label'>$request_type</span> <span class='ui teal label'>$url</span>";
+
+/**
+ * 接口说明 & 接口参数
+ */
+echo <<<EOT
+            <div class="ui raised segment">
+                <span class="ui red ribbon label">接口说明</span>
+                <div class="ui message">
+                    <p>{$descComment}</p>
+                </div>
+            </div>
+            <h3>接口参数</h3>
+            <table class="ui red celled striped table" >
+                <thead>
+                    <tr><th>参数名字</th><th>类型</th><th>是否必须</th><th>示例值</th><th>说明</th></tr>
+                </thead>
+                <tbody>
+EOT;
+
+$typeMaps = array(
+    'string' => '字符串',
+    'int' => '整型',
+    'float' => '浮点型',
+    'boolean' => '布尔型',
+    'date' => '日期',
+    'array' => '数组',
+    'fixed' => '固定值',
+    'enum' => '枚举类型',
+    'object' => '对象',
+);
+
+foreach ($rules as $key => $rule) {
+    $name = $rule['name'];
+    if (!isset($rule['type'])) {
+        $rule['type'] = 'string';
+    }
+    $type = isset($typeMaps[$rule['type']]) ? $typeMaps[$rule['type']] : $rule['type'];
+    $require = isset($rule['require']) && $rule['require'] ? '<font color="red">必须</font>' : '可选';
+    $default = isset($rule['default']) ? $rule['default'] : '';
+    if ($default === NULL) {
+        $default = 'NULL';
+    } else if (is_array($default)) {
+        $default = json_encode($default);
+    } else if (!is_string($default)) {
+        $default = var_export($default, true);
+    }
+
+    $desc = isset($rule['desc']) ? trim($rule['desc']) : '';
+
+    echo "<tr><td>$name</td><td>$type</td><td>$require</td><td>$default</td><td>$desc</td></tr>\n";
+}
+
+/**
+ * 返回结果
+ */
+echo <<<EOT
+                </tbody>
+            </table>
+            <h3>返回结果</h3>
+            <table class="ui green celled striped table" >
+                <thead>
+                    <tr><th>返回字段</th><th>类型</th><th>说明</th></tr>
+                </thead>
+                <tbody>
+EOT;
+
+foreach ($returns as $item) {
+    $name = $item['name'];
+    $type = isset($typeMaps[$item['type']]) ? $typeMaps[$item['type']] : $item['type'];
+    $detail = $item['desc'];
+    
+    echo "<tr><td>$name</td><td>$type</td><td>$detail</td></tr>";
+}
+
+echo <<<EOT
+            </tbody>
+        </table>
+EOT;
+
+/**
+ * 异常情况
+ */
+if (!empty($exceptions)) {
+    echo <<<EOT
+            <h3>异常情况</h3>
+            <table class="ui red celled striped table" >
+                <thead>
+                    <tr><th>错误码</th><th>错误描述信息</th>
+                </thead>
+                <tbody>
+EOT;
+
+    foreach ($exceptions as $exItem) {
+        $exCode = $exItem[0];
+        $exMsg = isset($exItem[1]) ? $exItem[1] : '';
+        echo "<tr><td>$exCode</td><td>$exMsg</td></tr>";
+    }
+
+    echo <<<EOT
+            </tbody>
+        </table>
+EOT;
+}
+
+/**
+ * 返回结果
+ */
+echo <<<EOT
+<h3>
+    请求模拟 &nbsp;&nbsp;
+</h3>
+EOT;
+
+
+echo <<<EOT
+<table class="ui green celled striped table" >
+    <thead>
+        <tr><th>参数</th><th>类型</th><th>是否必填</th><th>值</th></tr>
+    </thead>
+    <tbody id="params">
+EOT;
+foreach ($rules as $key => $rule){
+    $name = $rule['name'];
+    $type = isset($typeMaps[$rule['type']]) ? $typeMaps[$rule['type']] : $rule['type'];
+    $require = isset($rule['require']) && $rule['require'] ? '<font color="red">必须</font>' : '可选';
+    $default = isset($rule['default']) ? $rule['default'] : '';
+    $desc = isset($rule['desc']) ? trim($rule['desc']) : '';
+    $inputType = (isset($rule['type']) && $rule['type'] == 'file') ? 'file' : 'text';
+    echo <<<EOT
+        <tr>
+            <td>{$name}</td>
+            <td>{$type}</td>
+            <td>{$require}</td>
+            <td><input name="{$name}" value="{$default}" placeholder="{$desc}" style="width:100%;" class="C_input" type="$inputType"/></td>
+        </tr>
+EOT;
+}
+echo <<<EOT
+    </tbody>
+</table>
+<div style="display: flex;align-items:center;">
+    <select name="request_type" style="font-size: 14px; padding: 2px;">
+        <option value="GET"
+EOT;
+if($request_type == 'GET') {
+    echo 'selected="selected"';
+}
+echo <<<EOT
+>GET</option>
+        <option value="POST" 
+EOT;
+if($request_type == "POST") {
+    echo 'selected="selected"';
+}
+echo <<<EOT
+>POST</option>
+    </select>
+EOT;
+if(empty($url)) {
+    $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) ? 'https://' : 'http://';
+    $url = $url . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost');
+    $url .= substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
+}
+
+echo <<<EOT
+&nbsp;<input name="request_url" value="{$url}" style="width:500px; height:24px; line-height:18px; font-size:13px;position:relative; padding-left:5px;margin-left: 10px"/>
+    <input type="submit" name="submit" value="发送" id="submit" style="font-size:14px;line-height: 20px;margin-left: 10px "/>
+</div>
+EOT;
+
+/**
+ * JSON结果
+ */
+echo <<<EOT
+<div class="ui blue message" id="json_output">
+</div>
+EOT;
+
+/**
+ * 底部
+ */
+echo <<<EOT
+        <div class="ui blue message">
+          <strong>温馨提示：</strong> 此接口参数列表根据后台代码自动生成
+        </div>
+    </div>
+    <script type="text/javascript">
+        function getData() {
+            var data={};
+            $("td input").each(function(index,e) {
+                if ($.trim(e.value)){
+                    data[e.name] = e.value;
+                }
+            });
+            return data;
+        }
+
+        // json格式化
+        function ObjectToHtml(data) {
+            // 若传入数值为json，则转换为字符串
+            var txt = typeof data === 'string' ? data : JSON.stringify(data);
+            // 转换为Object
+            try {
+                var obj = eval('(' + txt + ')');
+            } catch (e) {
+                alert('数据源语法错误,JSON格式化失败! 错误信息: ' + e.description, 'err');
+                return
+            }
+            var line = '</br>', // 换行
+                indentChar = '&nbsp;&nbsp;&nbsp;&nbsp;'; // 缩进量
+            // 获取缩进字符
+            var getTab = function(num) {
+                for (var i = 0, tab = ''; i < num; i++) {
+                    tab += indentChar;
+                }
+                return tab;
+            };
+            // 检测递归
+            var format = function(value, indent /*缩进*/ , isLast /*是否数组或者对象最后*/ , inArray /*是否在数组中*/ ) {
+                var str = '';
+                // 将处理为`[value,value]`，并将进入检测递归
+                if (Object.prototype.toString.call(value) === '[object Array]') {
+                    str += '[';
+                    value.forEach(function(item, index) {
+                        str += format(item, indent, index === (value.length - 1), true);
+                    });
+                    str += ']';
+                // null，将处理为`<span class="null">null</span>`
+                } else if (value === null) {
+                    str += '<span class="null">null</span>';
+                // 对象Object，将处理为`{<span class="key">"key"</span>:value}`，并进入检测递归
+                } else if (typeof value === 'object') {
+                    str += '{' + line + getTab(++indent);
+                    var keys = Object.keys(value);
+                    keys.forEach(function(key, index) {
+                        str += '<span class="key">' + key + '</span>: ' + format(value[key], indent, index === (keys.length - 1));
+                    });
+                    str += '}';
+                    indent--;
+                // true/false，将处理为`<span class="boolen">true/false</span>`
+                } else if (typeof value === 'boolean') {
+                    str += '<span class="boolean">' + value + '</span>';
+                // 字符串，将处理为`<span class="string">"string"</span>`
+                } else if (typeof value === 'string') {
+                    str += '<span class="string">' + value + '</span>';
+                // 数字Number，将处理为`<span class="number">1</span>`
+                } else {
+                    str += '<span class="number">' + value + '</span>';
+                }
+                str += (isLast ? '' : ',') + (inArray ? '' : (line + getTab(isLast ? --indent : indent)));
+                return str;
+            }
+            return ('<div class="json">' + format(obj, 0, true) + '</div>');
+        }
+        
+        $(function(){
+            $("#json_output").hide();
+            $("#submit").on("click",function(){
+                $.ajax({
+                    url:$("input[name=request_url]").val(),
+                    type:$("select").val(),
+                    data:getData(),
+                    success:function(res,status,xhr){
+                        console.log(xhr);
+                        var statu = xhr.status + ' ' + xhr.statusText;
+                        var header = xhr.getAllResponseHeaders();
+                        var json_text = ObjectToHtml(res);    // 缩进4个空格
+                        $("#json_output").html('<pre>' + statu + '<br/>' + header + '<br/>' + json_text + '</pre>');
+                        $("#json_output").show();
+                    },
+                    error:function(error){
+                        console.log(error)
+                    }
+                })
+            })
+
+            
+        })
+    </script>
+</body>
+</html>
+EOT;
+
+

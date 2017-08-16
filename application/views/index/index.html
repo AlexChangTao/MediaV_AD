@@ -1,0 +1,184 @@
+<style type="text/css">
+.content-tabs {
+    position: relative;
+    height: 42px;
+    background: #fafafa;
+    line-height: 40px;
+}
+
+.content-tabs .roll-nav,
+.page-tabs-list {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: #999;
+    z-index: 2;
+    top: 0;
+}
+
+.content-tabs .roll-left {
+    left: 0;
+    border-right: solid 1px #eee;
+}
+
+.content-tabs .roll-right {
+    right: 0;
+    border-left: solid 1px #eee;
+}
+
+.content-tabs button {
+    background: #fff;
+    border: 0;
+    height: 40px;
+    width: 40px;
+    outline: none;
+}
+
+.content-tabs button:hover {
+    background: #fafafa;
+}
+
+nav.page-tabs {
+    margin-left: 40px;
+    width: 100000px;
+    height: 40px;
+    overflow: hidden;
+}
+
+nav.page-tabs .page-tabs-content {
+    float: left;
+}
+
+.page-tabs a {
+    display: block;
+    float: left;
+    border-right: solid 1px #eee;
+    padding: 0 15px;
+}
+
+.page-tabs a i:hover {
+    color: #c00;
+}
+
+.page-tabs a:hover,
+.content-tabs .roll-nav:hover {
+    color: #777;
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+.roll-right.J_tabRight {
+    right: 140px;
+}
+
+.roll-right.btn-group {
+    right: 60px;
+    width: 80px;
+    padding: 0;
+}
+
+.roll-right.btn-group button {
+    width: 80px;
+}
+
+.roll-right.J_tabExit {
+    background: #fff;
+    height: 40px;
+    width: 60px;
+    outline: none;
+}
+
+.dropdown-menu-right {
+    left: auto;
+}
+
+#content-main {
+    height: calc(100% - 120px);
+    overflow: hidden;
+}
+
+.fixed-nav #content-main {
+    height: calc(100% - 80px);
+    overflow: hidden;
+}
+
+.content-tabs {
+    border-bottom: solid 2px #2f4050;
+}
+
+.page-tabs a {
+    color: #999;
+}
+
+.page-tabs a i {
+    color: #ccc;
+}
+
+.page-tabs a.active {
+    background: #2f4050;
+    color: #a7b1c2;
+}
+
+.page-tabs a.active:hover,
+.page-tabs a.active i:hover {
+    background: #293846;
+    color: #fff;
+}
+</style>
+
+<script type="text/javascript">
+//退出登录
+function logout(){
+    layer.confirm('你确定要退出吗？', {icon: 3}, function(index){
+        layer.close(index);
+        window.location.href="<?=base_url('login/logout')?>";
+    });
+}
+</script>
+
+<!--右侧部分开始-->
+<div id="page-wrapper" class="gray-bg dashbard-1">
+    <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom:0;margin-top:-8px;">
+            <!--微型菜单按钮-->
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javasript:void(0);"><i class="fa fa-bars"></i></a>
+        </nav>
+    </div>
+    <div class="row content-tabs">
+        <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-angle-double-left"></i>
+        </button>
+        <nav class="page-tabs J_menuTabs">
+            <div class="page-tabs-content">
+                <a href="javascript:;" class="active J_menuTab" data-id="<?=base_url('admin/main')?>">桌面</a>
+                <!--默认主页需在对应的选项卡a元素上添加data-id="默认主页的url"-->
+            </div>
+        </nav>
+        <button class="roll-nav roll-right J_tabRight">
+            <i class="fa fa-angle-double-right"></i>
+            <!--右边导航滚动-->
+        </button>
+        <div class="btn-group roll-nav roll-right">
+            <button class="dropdown J_tabClose" data-toggle="dropdown">操作<span class="caret"></span></button>
+            <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                <li class="J_tabRefreshActive"><a>刷新当前选项卡</a></li>
+                <li class="J_tabShowActive"><a>定位当前选项卡</a></li>
+                <li class="divider"></li>
+                <li class="J_tabCloseAll"><a>关闭全部选项卡</a></li>
+                <li class="J_tabCloseOther"><a>关闭其他选项卡</a></li>
+            </ul>
+        </div>
+        <a href="javascript:;" onclick="return logout();" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i>退出</a>
+    </div>
+    <div class="row J_mainContent" id="content-main">
+        <iframe class="J_iframe" name="iframe0" width="100%" height="100%"
+                src="<?=base_url('admin/main')?>"
+                frameborder="0" data-id="<?=base_url('admin/main')?>"
+                seamless></iframe>
+        <!--默认主页需在对应的页面显示iframe元素上添加name="iframe0"和data-id="默认主页的url"-->
+    </div>
+</div>
+<!--右侧部分结束-->
+<div class="footer">
+    <div class="pull-right"><?php echo date("Y");?>&nbsp;<a href="javascript:void(0);" target="_blank"><?php echo isset($pager_footer)?$pager_footer:"";?></a></div>
+</div>

@@ -1,0 +1,21 @@
+{
+  "ecmaVersion": 5,
+  "plugins": {
+    "chrome-apps": {
+      
+    },
+    "chrome-extension": {
+      
+    },
+    "ckeditor4.4.x": {
+      
+    },
+    "angular1": {
+      
+    }
+  },
+  "libs": [
+    "browser",
+    "webidl"
+  ]
+}

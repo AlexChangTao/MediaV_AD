@@ -1,0 +1,97 @@
+<script>
+//退出登录
+function logout(){
+	layer.confirm('你确定要退出吗？', {icon: 3}, function(index){
+	    layer.close(index);
+	    window.location.href="<?=base_url('login/logout')?>";
+	});
+}
+
+//修改密码
+function update_pwd(){
+	layer.open({
+		type: 2,
+		closeBtn: 2,
+		area: ['450px', '320px'],
+		title: '修改密码',
+		content: '<?=base_url("admin/edit_pwd")?>'
+	});
+}
+
+//清除缓存
+function clear_cache(){
+	layer.open({
+		type: 2,
+		closeBtn: 2,
+		area: ['520px', '160px'],
+		shadeClose: true,
+		title: '清除缓存',
+		content: '<?=base_url("admin/clear_cache")?>'
+	});
+}
+</script>
+<nav class="navbar-default navbar-static-side" role="navigation" style="background-color:#2f4050;">
+	<div class="sidebar-collapse">
+		<ul class="nav metismenu" id="side-menu">
+			<li class="nav-header">
+				<div class="dropdown profile-element">
+					<span></span>
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+					<span class="clear"> <span class="block m-t-xs">
+						<strong class="font-bold">欢迎回来</strong>
+					</span>
+					<span class="text-muted text-xs block"><?=($this->session->userdata('account'));?><b class="caret"></b></span> </span> </a>
+					<ul class="dropdown-menu animated fadeInRight m-t-xs">
+						<li><a href="<?=base_url()?>" target="_blank">前台首页</a></li>
+						<li class="divider"></li>
+						<li><a href="javascript:;" onclick="clear_cache();">清除缓存</a></li>
+						<?if(check_auth('util/index')):?><li><a class="J_menuItem" onclick="$('body').click();" href="<?=base_url('util/index')?>">数据库管理</a></li><?endif;?>
+						<li class="divider"></li>
+						<li><a class="J_menuItem" onclick="$('body').click();" href="<?=base_url('admin/admin_edit?id='.$this->session->userdata("aid"))?>" target="_blank">个人信息</a></li>
+						<li><a href="javascript:;" onclick="update_pwd();">密码修改</a></li>
+						<li class="divider"></li>
+						<li><a href="javascript:;" onclick="return logout();">退出登录</a></li>
+					</ul>
+				</div>
+			</li>
+			<?foreach($menu as $k=>$vo):?>
+			<li>
+				<!-- 一级菜单 -->
+				<a <?if((!isset($vo['child'])||count($vo['child'])==0)&&$vo['name']!='admin/index') echo('class="J_menuItem"');?> href="<?=base_url($vo['name'])?>" data-id="<?=base_url($vo['name'])?>">
+					<i class="<?=$vo['icon']?$vo['icon'].' fa-fw':'fa fa-cogs fa-fw'?>"></i><span class="nav-label"><?=$vo['title']?></span>
+					<?if(isset($vo['child'])&&count($vo['child'])>0):?>
+					<span class="fa arrow"></span>
+					<?endif?>
+				</a>
+				<?if(isset($vo['child'])&&count($vo['child'])>0):?>
+				<!-- 二级菜单 -->
+				<ul class="nav nav-second-level">
+					<?foreach($vo['child'] as $b):?>
+					<li>
+						<a <?if(!isset($b['child'])||count($b['child'])==0) echo('class="J_menuItem"');?> href="<?=base_url($b['name'])?>" data-id="<?=base_url($b['name'])?>">
+							<i class="<?=$b['icon']?$b['icon'].' fa-fw':'fa fa-cogs fa-fw'?>"></i><span class="nav-label"><?=$b["title"]?></span>
+							<?if(isset($b['child'])&&count($b['child'])>0):?>
+							<span class="fa arrow"></span>
+							<?endif?>
+						</a>
+						<?if(isset($b['child'])&&count($b['child'])>0):?>
+						<!-- 三级菜单 -->
+						<ul class="nav nav-third-level">
+							<?foreach($b['child'] as $c):?>
+							<li>
+								<a class="J_menuItem" href="<?=base_url($c['name'])?>" data-id="<?=base_url($c['name'])?>">
+									<i class="<?=$c['icon']?$c['icon'].' fa-fw':'fa fa-fw fa-cogs'?>"></i><?=$c["title"]?>
+								</a>
+							</li>
+							<?endforeach;?>
+						</ul>
+						<?endif;?>
+					</li>
+					<?endforeach;?>
+				</ul>
+				<?endif;?>
+			</li>
+			<?endforeach;?>
+		</ul>
+	</div>
+</nav>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<list>
+<Province name="河北" id="5">
+<City name="邢台" id="129"><Shop><Name>99</Name>
+<Code>888</Code>
+<Tel></Tel>
+<Address></Address>
+</Shop>
+</City>
+<City name="张家口" id="131"><Shop><Name>999</Name>
+<Code>999</Code>
+<Tel></Tel>
+<Address></Address>
+</Shop>
+</City>
+</Province>
+<Province name="山西" id="6">
+<City name="晋城" id="140"><Shop><Name>666</Name>
+<Code>666</Code>
+<Tel></Tel>
+<Address></Address>
+</Shop>
+</City>
+</Province>
+<Province name="上海" id="3">
+<City name="上海" id="7044"><Shop><Name>222</Name>
+<Code>222</Code>
+<Tel></Tel>
+<Address></Address>
+</Shop>
+</City>
+</Province>
+</list>

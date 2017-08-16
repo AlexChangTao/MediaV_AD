@@ -1,0 +1,37 @@
+<style>
+	.change_card {
+			
+			float: left;
+	}
+
+	.change_card a {
+		float: left;
+		height: 30px;
+		padding-left: 10px;
+		padding-right: 10px;
+		line-height: 30px;
+		font-family: serif;
+		font-size: 100%;
+		color: black;
+		margin: 5px 0 5px 0;
+		border-right:1px solid #ccc; 
+		background:#fff;
+	}
+
+
+	.change_card a:hover{
+	
+		background:#ccc;
+	}
+	
+	.change_card  .cur{
+		border-right:0; 
+	}				
+</style>
+
+<div class="change_card">
+	    <a href="/reward/index?activity_id=<?php echo $activity_id; php?>">奖项设置</a>
+		<a href="/lottery_rule/index?activity_id=<?php echo $activity_id; php?>">规则设置</a>
+		<a href="/disable_ip/index?activity_id=<?php echo $activity_id; php?>">IP限制</a>
+		<a class="cur" href="/activity_restriction/index?activity_id=<?php echo $activity_id; php?>">全局设置</a>
+</div>

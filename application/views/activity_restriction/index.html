@@ -1,0 +1,119 @@
+<style>
+	.activity {
+			margin: 20px;
+			float: right;
+	}
+			
+</style>
+
+<div class="ibox-content col-lg-12">
+<div class="col-lg-10 row wrapper white-bg page-heading">
+	<head>
+	<h2>全局设置</h2>
+</head>
+</div>
+<div class="ibox float-e-margins">
+	<body>
+		<form action="/activity_restriction/index?activity_id=<?php echo trim($_GET['activity_id']); php?>" method="POST" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-1">IP限制数：</label>
+			<div class="col-sm-2">
+				<input class="form-control" type="number" size="3" name="ip_award_times"  value="<?php echo $ip_award_times; php?>" />
+			</div>
+			<span>（单IP在整个活动期间的中奖数）</span>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-1">用户限制：</label>
+			<div class="col-sm-2"></div>
+		</div>
+		
+			<div class="form-group">
+				<span class="col-sm-1 col-lg-offset-1">活动期间抽奖次数：</span>
+				<div class="col-sm-2">
+					<input  class="form-control" type="number" size="3" name="user_lottery_times" value="<?php echo $user_lottery_times; php?>" />
+				</div>
+				<span>（-1表示不限）</span>
+			</div>
+			<div class="form-group">
+				<span class="col-sm-1 col-lg-offset-1">活动期间中奖数：</span>
+				<div class="col-sm-2">
+					<input  class="form-control" type="number" size="3" name="user_award_times"  value="<?php echo $user_award_times; php?>" />
+				</div>
+				<span>（-1表示不限）</span>
+			</div>
+			<div class="form-group">
+				<span class="col-sm-1 col-lg-offset-1">日抽奖次数：</span>
+				<div class="col-sm-2">
+					<input class="form-control" type="number" size="3" name="user_lottery_times_day"  value="<?php echo $user_lottery_times_day; php?>" />
+				</div>
+				<span>（-1表示不限）</span>
+			</div>
+			<div class="form-group">
+				<span class="col-sm-1 col-lg-offset-1">日中奖数：</span>
+				<div class="col-sm-2">
+					<input type="number" class="form-control" size="3" name="user_award_times_day"  value="<?php echo $user_award_times_day; php?>" />
+				</div>
+				<span>（-1表示不限）</span>
+			</div>
+				
+		
+		<div class="form-group">
+			<label class="col-sm-1">开始日期：</label>
+			<div class="col-sm-2">
+				<input class="form_datetime form-control" type="text" name="start_at" value="<?php echo date('Y-m-d H:i', $start_at); php?>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-1">结束日期：</label>
+			<div class="col-sm-2">
+				<input class="form_datetime form-control" type="text" class="form_datetime" name="end_at" value="<?php echo date('Y-m-d H:i', $end_at); php?>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-1">验证码：</label>
+			<div class="col-sm-2">
+			<input type="radio" name="verify_code" value="1" <?php if ($verify_code == 1) { echo 'checked';} php?>>启用
+			<input type="radio" name="verify_code" value="2" <?php if (!isset($verify_code) || $verify_code == 2) { echo 'checked';} php?>>禁用
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-1">状态： </label>
+			<div class="col-sm-2">
+				<input type="radio" name="status" value="1" <?php if ($status == 1) { echo 'checked';} php?>>启用
+				<input type="radio" name="status" value="2" <?php if (!isset($status) || $status == 2) { echo 'checked';} php?>>禁用
+			</div>
+		</div>
+
+		<div class="form-group ">
+		    <div class="col-sm-2">
+		        <input type="submit" class="btn btn-primary btn-sm" value="添加"/>
+		        <a href="javascript:history.go(-1);" class="btn btn-sm btn-default">取消</a>
+		    </div>
+		</div>
+
+		</form>
+	</body>
+	</div>
+</div>
+
+
+<block name="script">
+<link href="<?=base_url()?>web/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<link href="<?=base_url()?>web/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<?=base_url()?>web/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="<?=base_url()?>web/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+$(function(){
+    $('.form_datetime').datetimepicker({
+        formatTime: 'HH:ii',
+    	formatDate: 'yyyy-mm-dd',
+        autoclose: true,
+        todayBtn: true,
+        todayHighlight: true,
+        language: 'zh-CN',
+        pickerPosition: "bottom-left",
+    });
+});
+</script>
+</block>

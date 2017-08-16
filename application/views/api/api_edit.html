@@ -1,0 +1,88 @@
+<link href="<?=base_url()?>web/select2/select2.css" rel="stylesheet">
+<script src="<?=base_url()?>web/select2/select2.full.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('select').select2();
+});
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+	  <h2>接口管理</h2>
+	  <div class="breadcrumb">
+	    <li><a href="<?=base_url('api/index')?>" class="page-action">接口管理</a></li>
+	    <li>修改接口</li>
+	  </div>
+  </div>
+</div>
+<br/>
+<div class="ibox-content main_content_margin">
+    <form action="<?=base_url('api/api_edit')?>" method="post" class="form">
+    	<input type="hidden" name="id" value="<?=$result['id']?>" class="form-control"/>
+    	<div class="form-group">
+    		<label>接口名称</label>
+    		<input type="text" name="name" value="<?=$result['name']?>" class="form-control"/>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-6">
+		    	<div class="form-group">
+		    		<label>所属广告主</label>
+		    		<select class="form-control" name="advertiser_id">
+		    			<option value="0">--请选择--</option>
+		    			<?foreach ($advertiser as $key => $value):?>
+		    				<option value="<?=$value['id']?>" <?=$value['id']==$result['advertiser_id']?'selected':''?>><?=$value['name']?></option>
+		    			<?endforeach;?>
+		    		</select>
+		    	</div>
+	    	</div>
+	    	<div class="col-md-6">
+		    	<div class="form-group">
+		    		<label>方式</label>
+		    		<select class="form-control" name="type_id">
+		    			<option value="0">--请选择--</option>
+		    			<option value="1" <?=$result['type_id']==1?'selected':''?>>下发</option>
+		    			<option value="2" <?=$result['type_id']==2?'selected':''?>>采集</option>
+		    		</select>
+		    	</div>
+	    	</div>
+    	</div>
+    	<div class="form-group">
+    		<label>接口地址</label>
+    		<input type="text" name="address" value="<?=$result['address']?>" class="form-control"/>
+    	</div>
+    	<div class="form-group">
+    		<label>控制器名称</label>
+    		<input type="text" name="control_name" value="<?=$result['control_name']?>" class="form-control"/>
+    	</div>
+    	<div class="form-group">
+    		<label>接口说明</label>
+    		<textarea name="mark" class="form-control"><?=$result['mark']?></textarea>
+    	</div>
+    	<div class="form-group">
+    		<label>状态</label>
+    		<div>
+    		  <label class="radio-inline">
+    		    <input type="radio" name="status" value="1" <?=$result['status']==1?'checked':''?>> 启用
+    		  </label>
+    		  <label class="radio-inline">
+    		    <input type="radio" name="status" value="0" <?=$result['status']==0?'checked':''?>> 禁用
+    		  </label>
+    		</div>
+    	</div>
+        <div class="row">
+        	<div class="form-group col-md-6">
+        		<label>修改时间</label>
+        		<input type="text" name="" value="<?=date('Y-m-d H:i:s',$result['update_time'])?>" class="form-control" disabled/>
+        	</div>
+        	<div class="form-group col-md-6">
+        		<label>添加时间</label>
+        		<input type="text" name="" value="<?=date('Y-m-d H:i:s',$result['add_time'])?>" class="form-control" disabled/>
+            </div>
+    	</div>
+    	<div>
+    		<div class="btn-group">
+    		  <button type="submit" class="btn btn-primary btn-sm">保 存</button>
+              <button class="btn btn-default btn-sm" onclick="if(self=='top'){history.go(-1);}else{window.parent.close_actvie_tab();};return false;">取 消</button>
+    		</div>
+    	</div>
+    </form>
+</div>

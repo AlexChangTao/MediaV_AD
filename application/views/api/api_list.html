@@ -1,0 +1,175 @@
+<!-- 表格 -->
+<link rel="stylesheet" href="<?=base_url('web/bootstrap-table/bootstrap-table.css');?>">
+<script src="<?=base_url('web/bootstrap-table/bootstrap-table.js');?>"></script>
+<script src="<?=base_url('web/bootstrap-table/locale/bootstrap-table-zh-CN.js');?>"></script>
+<!-- 数据导出 -->
+<script src="<?=base_url('web/bootstrap-table/extensions/export/bootstrap-table-export.js');?>"></script>
+<script src="<?=base_url('web/js/tableExport/tableExport.js');?>"></script>
+<!-- 行内编辑 -->
+<script src="<?=base_url('web/bootstrap-table/extensions/editable/bootstrap-table-editable.js');?>"></script>
+<script src="<?=base_url('web/editable/bootstrap-editable.js');?>"></script>
+<link rel="stylesheet" href="<?=base_url('web/editable/bootstrap-editable.css');?>">
+<script type="text/javascript">
+$(function(){
+	$table = $('#tablelist').bootstrapTable({
+		url: '<?=base_url("api/index");?>',
+		toolbar: '#toolbar',
+		classes: 'table-no-bordered table-hover',
+		idField: 'id',
+		pagination: true,
+		sidePagination: 'server',
+		pageList: [10, 25, 50, 100, 'All'],
+		pageSize: 10,
+		showRefresh: true,
+		showToggle: true,
+		showExport: true,
+		exportTypes: ['csv','excel'],
+		exportDataType: 'all',
+		sortOrder: 'desc',
+		clickToSelect: true,
+		showColumns: true,
+	    columns: [{
+	    	field: 'check',
+	    	checkbox: true,
+	    }, {
+	        field: 'id',
+	        sortable: true,
+	        title: 'ID',
+	    }, {
+	        field: 'name',
+	        title: '名称',
+	    }, {
+	        field: 'advertiser_name',
+	        title: '广告主',
+	        formatter: advertiserFormatter,
+	    }, {
+	        field: 'type_id',
+	        sortable: true,
+	        title: '类型',
+	        formatter: typeFormatter,
+	    }, {
+	        field: 'address',
+	        title: '地址',
+	    }, {
+	        field: 'control_name',
+	        title: '控制器',
+	    }, {
+	        field: 'mark',
+	        title: '说明',
+	    }, {
+	        field: 'add_time',
+	        sortable: true,
+	        title: '时间',
+	        formatter: timeFormatter,
+	    }, {
+	        field: 'operate',
+	        title: '操作',
+	        events: operateEvents,
+	        formatter: operateFormatter,
+	    }],
+	});
+});
+function advertiserFormatter(value, row, index) {
+	return '<a href="<?=base_url('C_Advertisers/Adv_search?name=');?>'+value+'" class="page-action" title="广告主&nbsp;'+value+'">'+value+'</a>';
+}
+//时间格式化
+function timeFormatter(value, row, index) {
+	return new Date(parseInt(value) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+}
+//状态
+function typeFormatter(value, row, index) {
+	if(value==1){
+		return '下发';
+	} else if(value==2) {
+		return '采集';
+	}
+}
+//删除
+function operateFormatter(value, row, index) {
+	var str = '<span class="btn-group">';
+	<?if(check_auth('api/api_edit')):?>
+	str += '<a class="btn btn-xs btn-default page-action" href="<?=base_url('api/api_edit?id=');?>'+row.id+'" title="修改接口"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>';
+	<?endif;?>
+	<?if(check_auth('api/api_del')):?>
+	str += '<a class="remove btn btn-xs btn-default" href="javascript:void(0)" title="删除"><i class="fa fa-trash-o"></i>&nbsp;删除</a>';
+	<?endif;?>
+	str += '</span>';
+	return str;
+}
+// 删除单个
+window.operateEvents = {
+	'click .remove': function (e, value, row, index) {
+		parent.layer.confirm('删除后将无法恢复，真的要删除 <font color="red">'+JSON.stringify(row)+'</font> 吗？', {
+			btn: ['确认','取消'], //按钮
+			shade: [0.4, '#393D49'] //显示遮罩
+		}, function(){
+			$.post('<?=base_url("api/api_del");?>',{id:[row.id]},function(rs){
+				if(rs == 1){
+					parent.layer.alert('删除成功');
+				    $table.bootstrapTable('remove', {
+				        field: 'id',
+				        values: [row.id],
+				    });
+				} else {
+					parent.layer.alert('删除失败');
+				}
+			});
+		},function(){
+		});
+	}
+}
+// 删除多个
+function resource_delete(){
+	var a = $table.bootstrapTable('getSelections');
+	var arr = new Array();
+	$(a).each(function(i,obj){
+		arr[i] = obj.id;
+	});
+	if(arr.length == 0){
+		parent.layer.alert('请选择要删除的条目');
+		return false;
+	}
+	parent.layer.confirm('删除后将无法恢复，真的要删除吗？', {
+		btn: ['确认','取消'], //按钮
+		shade: [0.4, '#393D49'] //显示遮罩
+	}, function(){
+		$.post('<?=base_url("api/api_del");?>',{id:arr},function(rs){
+			if(rs == 1){
+				parent.layer.alert('删除成功');
+				$table.bootstrapTable('remove', {
+				    field: 'id',
+				    values: arr,
+				});
+				$table.bootstrapTable('refresh');
+			} else {
+				parent.layer.alert('删除失败');
+			}
+		});
+		return;
+	},function(){
+	});
+}
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+	  <h2>接口管理</h2>
+	  <div class="breadcrumb">
+	    <li><a href="<?=base_url('api/index')?>" class="page-action">接口管理</a></li>
+	    <li>接口列表</li>
+	  </div>
+  </div>
+</div>
+<br/>
+<div class="ibox-content main_content_margin">
+	<div class="btn-group" id="toolbar">
+	<?if(check_auth('api/api_del')):?>
+		<a href="<?=base_url('api/api_del')?>" class="btn btn-sm btn-default" onclick="resource_delete();return false" title="删除"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+	<?endif;?>
+	<?if(check_auth('api/api_add')):?>
+		<a href="<?=base_url('api/api_add')?>" class="btn btn-sm btn-primary page-action" title="添加接口"><i class="fa fa-plus-circle"></i>&nbsp;添加接口</a>
+	<?endif;?>
+	</div>
+	<div>
+		<table id="tablelist" class="table table-no-bordered"></table>
+	</div>
+</div>

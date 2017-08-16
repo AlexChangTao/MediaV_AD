@@ -1,0 +1,98 @@
+<script type="text/javascript">
+	function del(id){
+		$name = $("#del"+id+" td:nth-child(2)").html();
+		parent.layer.confirm('真的要删除 '+$name+' 吗？', {
+			btn: ['确认','取消'], //按钮
+			shade: [0.4, '#393D49'] //显示遮罩
+		}, function(){
+			$.post("<?=base_url('admin/admin_del')?>", { "id": id},function(data){
+				if(data == 1){
+					parent.layer.msg('删除成功', { icon: 1, time: 1000 }, function(){
+						location.reload();
+					});
+				}else{
+					parent.layer.msg('删除失败', {icon: 2, time: 2000 }); 
+				}
+			}, "json");
+		},function(){
+		});
+	}
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+	  <h2>管理员管理</h2>
+	  <div class="breadcrumb">
+	    <li><a href="<?=base_url('admin/main')?>" class="page-action">首页</a></li>
+	    <li>角色管理</li>
+	    <li>管理员列表</li>
+	  </div>
+  </div>
+</div>
+<br/>
+<div class="ibox-content main_content_margin">
+	<?if(check_auth('admin/admin_add')):?>
+	<div>
+		<a href="<?=base_url('admin/admin_add');?>" class="btn btn-sm btn-primary page-action" title="添加用户"><i class="fa fa-plus-circle"></i>&nbsp;添加用户</a>
+	</div>
+	<?endif;?>
+	<div>
+		<table class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>用户名</th>
+					<th>所属分组</th>
+					<th>广告主</th>
+					<th>最近登录时间</th>
+					<th>状态</th>
+					<th>创建时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?foreach($data as $a=>$vo):?>
+				<tr id="del<?=$vo['id']?>">
+					<td><?=$vo['id']?></td>
+					<td><?=$vo['account']?></td>
+					<td><?=$vo['group']?></td>
+					<td>
+						<?
+						$arr = explode(',',$vo['advertisers']);
+						foreach($advertisers as $k=>$v){
+							if(in_array($v['id'],$arr)){
+								$url = base_url('C_Advertisers/Adv_search?name='.$v['name']);
+								$str = '<a href="'.$url.'" class="btn btn-default btn-xs page-action" title="广告主 '.$v['name'].'">'.$v['name'].'</a>&nbsp;';
+								echo($str);
+							}
+						}
+						?>
+					</td>
+					<td><?if(!empty($vo['login_time'])){echo(date('Y-m-d H:i:s',$vo['login_time']));}?></td>
+					<td>
+						<div class="switch" data-table="admin" data-id="<?=$vo['id']?>" data-field="status" value="0">
+						<?=$vo['status']==1?'启用':'禁用';?>
+						</div>
+					</td>
+					<td><?=date('Y-m-d H:i:s',$vo['create_time'])?></td>
+					<td>
+					<div class="btn-group">
+					<?if(check_auth('admin/admin_edit')&&$vo['id']!=_MANAGER_ID_):?>
+						<a class="btn btn-xs btn-default page-action" title="详情/编辑" href="<?=base_url('admin/admin_edit?id='.$vo['id']);?>"><i class="fa fa-pencil-square-o"></i>&nbsp;详情/编辑
+						</a>
+					<?endif;?>
+					<?if(check_auth('admin/admin_del')&&$vo['id']!=_MANAGER_ID_&&$vo['id']!=$this->session->userdata('aid')):?>
+						<a class="btn btn-xs btn-default" href="javascript:;" onclick="del(<?=$vo['id']?>)">
+						<i class="fa fa-trash-o"></i>&nbsp;删除
+						</a>
+					<?endif?>
+					</td>
+				</tr>
+				<?endforeach;?>
+			</tbody>
+		</table>
+	</div>
+	<!-- 分页 -->
+	<div class="page">
+	<?=$page?>
+	</div>
+</div>

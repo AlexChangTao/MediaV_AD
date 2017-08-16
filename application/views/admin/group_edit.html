@@ -1,0 +1,118 @@
+<script type="text/javascript">
+	$(function(){
+		$("#all_checkbox").click(function(){
+			var all = $('#all').val();
+			if(all == 1){	
+				$('#all').attr('value', 0);	
+				//此处使用attr第二次设置的时候会除问题，解决办法使用prop函数，jquery版本必须要1.6.1以上
+				$('input[type="checkbox"]').prop('checked', false);
+				$('input[type="hidden"]').attr('value',0);
+			}else{
+				$('#all').attr('value', 1);
+				$('input[type="checkbox"]').prop('checked', true);
+				$('input[type="hidden"]').attr('value',1);
+			}
+			return false;
+		});
+	});
+	function checkbox(id){
+		var box = $('#box'+id).val();
+		var obj = $('.checkbox'+id);
+		if(box == 1){
+			$('#box'+id).attr('value', 0);	
+			//此处使用attr第二次设置的时候会出问题，解决办法使用prop函数，jquery版本必须要1.6.1以上
+			obj.prop('checked', false);
+			switch_child(id,0);
+		}else{
+			$('#box'+id).attr('value', 1);
+			obj.prop('checked', true);
+			switch_child(id,1);
+
+			switch_parent(obj.attr('data_parent_id'));
+		}
+	}
+	function switch_parent(id){
+		$('#box'+id).attr('value', 1);
+		var obj = $('.checkbox'+id);
+		obj.prop('checked', true);
+		if(id == 0) return;
+		switch_parent(obj.attr('data_parent_id'));
+	}
+	function switch_child(id,num){
+		var obj = $('.pid_'+id);
+		if(obj.length) {
+			obj.each(function(){
+				$pid = $(this).attr('data_parent_id');
+				$id = $(this).attr('id');
+				if(num == 1){
+					$('.pid_'+$pid).prop('checked',true);
+					$('#box'+$id).attr('value', 1);
+					switch_child($id,1);
+				}else{
+					$('.pid_'+$pid).prop('checked',false);
+					$('#box'+$id).attr('value', 0);
+					switch_child($id,0);
+				}
+			});
+		}
+	}
+	function check_form(){
+		var title = $('#title').val();
+		if(title == ''){
+			layer.tips('请输入组名称', '#title', {time: 10000});
+			return false;
+		}
+		return true;
+	}
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+	  <h2>用户组管理</h2>
+	  <div class="breadcrumb">
+	    <li><a href="<?=base_url('admin/main')?>" class="page-action">首页</a></li>
+	    <li>角色管理</li>
+	    <li><a href="<?=base_url('admin/auth_group')?>" class="page-action">用户组管理</a></li>
+	    <li>编辑用户组</li>
+	  </div>
+  </div>
+</div>
+<br/>
+<div class="ibox-content main_content_margin">
+	<form name="myform" action="<?=base_url('admin/group_edit')?>" method="post" onsubmit="return check_form();" class="form">
+		<div class="form-group">
+			<label>组名称</label>
+			<input type="hidden" name="id" value="<?=$result['id']?>" />
+			<input type="text" name="title" id="title" size="24" value="<?=$result['title']?>" class="form-control" />
+			<p class="help-block">*中文名称</p>
+		</div>
+		<div class="form-group">
+			<label>状态</label>
+			<div>
+			  <label class="radio-inline">
+			    <input type="radio" name="status" value="1" <?=$result['status']==1?'checked':''?>> 启用
+			  </label>
+			  <label class="radio-inline">
+			    <input type="radio" name="status" value="0" <?=$result['status']==0?'checked':''?>> 禁用
+			  </label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>分配的权限</label>
+			<input type="hidden" id="all" value="1" class="form-control" />
+			<button class="btn btn-xs btn-primary" id="all_checkbox" />全选 / 取消</button> 
+			<ul class="list-unstyled">
+				<?foreach($data as $k=>$vo):?>
+				<li>
+				<input type="hidden" id="box<?=$vo['id']?>" value="<?if(strpos($result['rules'],','.$vo['id'].',') > -1){echo('1');}else{echo('0');}?>" />
+				<?=$vo['title_display']?>
+				<input type="checkbox" name="rules[]" class="checkbox<?=$vo['id']?> pid_<?=$vo['pid']?>" data_parent_id="<?=$vo['pid']?>" id="<?=$vo['id']?>" onclick="checkbox(<?=$vo['id']?>)" value="<?=$vo['id']?>" <?if(strpos($result['rules'],','.$vo['id'].',') > -1) echo('checked="true"');?>/>
+				</li>
+				<?endforeach;?>
+			</ul>
+		</div>
+		<div class="form-group btn-group">
+			<button type="submit" class="btn btn-sm btn-primary">确 认</button>
+        	<button class="btn btn-default btn-sm" onclick="if(self=='top'){history.go(-1);}else{window.parent.close_actvie_tab();};return false;">取 消</button>
+		</div>
+	</form>
+</div>

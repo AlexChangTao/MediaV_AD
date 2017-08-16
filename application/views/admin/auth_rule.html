@@ -1,0 +1,102 @@
+<script type="text/javascript">
+//添加权限
+function rule_add(id){
+	parent.layer.open({
+		type: 2,
+		closeBtn: 2,
+		area: ['470px', '535px'],
+		title: '添加权限',
+		content: '<?=base_url("admin/rule_add?id=")?>'+id,
+	});	
+}
+//修改权限
+function rule_edit($id){
+	parent.layer.open({
+		type: 2,
+		closeBtn: 2,
+		area: ['470px', '535px'],
+		title: '修改权限',
+		content: '<?=base_url("admin/rule_edit?id=")?>'+$id,
+	});	
+}
+//删除权限
+function rule_del($id){
+	parent.layer.confirm('删除后无法恢复，真的要删除吗？', {
+		btn: ['确认','取消'], //按钮
+		shade: [0.4, '#393D49'] //显示遮罩
+	}, function(){
+		$.post("<?=base_url('admin/rule_del')?>", {"id": $id},function(data){
+			if(data == 1){
+				parent.layer.msg('删除成功', { icon: 1, time: 1000 }, function(){
+					location.reload();
+				});
+			}else if(data == -1){
+				parent.layer.msg('删除失败，该分类有子分类', {icon: 2, time: 2000 }); 
+			}else{
+				parent.layer.msg('删除失败', {icon: 2, time: 2000 }); 
+			}
+		}, "json");
+	},function(){
+	});
+}</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+	  <h2>权限管理</h2>
+	  <div class="breadcrumb">
+	    <li><a href="<?=base_url('admin/main')?>" class="page-action">首页</a></li>
+	    <li>角色管理</li>
+	    <li>权限列表</li>
+	  </div>
+  </div>
+</div>
+<br/>
+<div class="ibox-content main_content_margin">
+	<?if(check_auth('admin/rule_add')):?>
+	<div>
+		<a href="javascript:;" onclick="rule_add();" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;添加权限</a>
+	</div>
+	<?endif;?>
+	<div>
+	  <table class="table table-hover table-condensed">
+	      <thead>
+		    <tr>
+		      <th>ID</th>
+		      <th>名称</th>
+		      <th>控制器/方法</th>
+		      <th>状态</th>
+		      <th>导航显示</th>
+		      <th>排序</th>
+		      <th>创建时间</th>
+		      <th>操作</th>
+	        </tr>
+	       </thead>
+	       <tbody>
+	        <foreach name="data" item="vo">
+	        <?foreach($data as $k=>$vo):?>
+		    <tr <?if($vo['show']==0 || $vo['status']==0) echo('style="color:#ccc;"');?>>
+		      <td><?=$vo['id']?></td>
+		      <td><i class="<?=$vo['icon']?$vo['icon']:'fa fa-cogs'?>"></i>&nbsp;&nbsp;<?=$vo['title_display']?></td>
+		      <td><?=$vo['name']?></td>
+		      <td><?if($vo['status']==1):?><i class="fa fa-check-circle"></i>启用<?else:?><i class="fa fa-ban"></i><span>禁用</span><?endif;?></td>
+		      <td><?if($vo['show']==1):?><i class="fa fa-eye"></i>显示<?else:?><i class="fa fa-eye-slash"></i>隐藏<?endif;?></td>
+		      <td><?=$vo['sort']?></td>
+		      <td><?=date('Y-m-d H:i:s',$vo['create_time'])?></td>
+		      <td>
+		      	<div class="btn-group">
+		      	<?if(check_auth('admin/rule_add')):?>
+		      	<a href="javascript:void(0);" onclick="rule_add(<?=$vo['id']?>);" class="btn btn-xs btn-default"><i class="fa fa-plus-circle"></i>&nbsp;添加</a>
+		      	<?endif;?>
+		      	<?if(check_auth('admin/rule_edit')):?>
+		      	<a href="javascript:void(0);" onclick="rule_edit(<?=$vo['id']?>);" class="btn btn-xs btn-default"><i class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>
+		      	<?endif;?>
+		      	<?if(check_auth('admin/rule_del')):?>
+		      	<a href="javascript:void(0);" class="btn btn-xs btn-default" onclick="rule_del(<?=$vo['id']?>);"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+		      	<?endif;?>
+		      	</div>
+		      </td>
+		    </tr>
+	        <?endforeach;?>
+	       </tbody>
+	  </table>
+	</div>
+</div>

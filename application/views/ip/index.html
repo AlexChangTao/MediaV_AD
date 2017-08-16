@@ -1,0 +1,78 @@
+<style>
+	.p {
+			background-color: #eee;
+	}
+
+	.add {
+		float: left;
+	}
+
+	.search {
+		float: right;
+	}
+</style>
+
+<div  class="ibox-content col-lg-12">
+<div class="col-lg-10 row wrapper white-bg page-heading">
+	<head>
+		<h2>ip限制</h2>
+	</head>
+</div>
+<div class="ibox float-e-margins">
+<body>
+	<samp><h3 class="p">注：获取的用户IP默认状态为启用，如禁用可在操作区进行【禁用】操作</h3></samp>
+	<form action="/disable_ip/index?activity_id=<?php echo trim($_GET['activity_id']); php?>" method="POST" class="form-horizontal">
+	<div class="add input-group col-md-3 style="margin-top:0px positon:relative"">
+		<input class="form-control" size="30" type="text" name="ip" placeholder="输入禁止IP：0.0.0.0" />
+		<span class="input-group-btn">
+			<input class="btn btn-default btn-primary" type="submit" value="添加"/>
+		</span>
+	</div>
+	</form>
+	<div class="search input-group col-xs-6 col-md-3 col-md-offset-9">
+		<input id="search_ip" class="search form-control" size="30" type="text" name="search_ip" value="<?php echo $_GET['search_ip']; php?>"  placeholder="0.0.0.0" / >
+		<span class="input-group-btn">
+            <button class="btn btn-primary btn-search save-search">查找</button>
+        </span>  
+	</div>
+	<br/ >
+	<table class="table table-bordered" >
+		  <tr>
+		    <th>#ID</th>
+		    <th>IP</th>
+		    <th>已抽奖数</th>
+		    <th>已中奖数</th>
+		    <th>状态</th>
+		    <th>操作</th>
+		  </tr>
+		  <?php foreach($logs as $log): php?>
+		  <tr>
+		    <td><?php echo $log['id']; php?></td>
+		    <td><?php echo $log['ip']; php?></td>
+		    <td><?php echo $log['lottery_times']; php?></td>
+		    <td><?php echo $log['award_times']; php?></td>
+		    <td><span class="label <?php if($log['status'] == 1) {echo ' label-primary"> 已启用';}else {echo ' label-default"> 已禁用';} php?></span></td>
+		    <td>
+				<?php if($log['status'] === 1): ?>
+			    <a class="btn btn-sm btn-primary" href="change_status?activity_id=<?php echo trim($_GET['activity_id']); php?>&method=resume&ip=<?php echo $log['ip']; php?>">关闭</a>
+				<?php else: ?>
+			    <a class="btn btn-sm btn-primary" href="change_status?activity_id=<?php echo trim($_GET['activity_id']); php?>&method=close&ip=<?php echo $log['ip']; php?>">启用</a>
+				<?php endif; ?>
+			</td>
+		  </tr>
+		  <?php endforeach; ?>
+	</table>
+
+	<div style="text-align:center;"><?= $page ?></div>
+</body>
+</div>
+</div>
+</html>
+
+<script type="text/javascript">
+	
+	$('.save-search').on('click',function(){
+		var val = $('#search_ip').val();
+		window.location.href="/disable_ip/index?activity_id=<?php echo trim($_GET['activity_id']) . '&search_ip='; php?>" + val;
+	});
+</script>

@@ -1,0 +1,88 @@
+<style>
+    .rule {
+            background-color: #eee;
+    }
+            
+</style>
+<div  class="ibox-content col-lg-12">
+<div class="col-lg-10 row wrapper white-bg page-heading">
+<p class="rule">注：这里还是要加一些注意事项文字或简单说明</p>
+</div>
+<div class="ibox float-e-margins">
+<form action="/lottery_rule/edit?activity_id=<?php echo trim($_GET['activity_id']); if($_GET['id']) { echo '&id=' . $_GET['id'];}  php?>" method="POST" class="form-horizontal">
+<div class="form-group">
+<label class="col-sm-2">奖品名称：</label>
+<div class="col-sm-10">
+<select name="reward_id" class="form-control border-radius">
+	<?php foreach ($reward_list as $reward):?>
+
+    	<option value="<?php echo $reward['id'];?>" <?php if(!empty($reward['id']) && $reward_id == $reward['id']) { echo 'selected="selected"';}?>><?php echo $reward['name'];?></option>
+
+		<?php endforeach;?>
+</select>
+</div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2">中奖开始时间（同种奖品中奖时间段不允许有交集）：</label>
+	<div class="col-sm-1">
+        <input type="text" class="form_datetime form-control" name="lottery_start" value="<?php if(!empty($lottery_start)) {echo date('Y-m-d H:i', $lottery_start);} ?>"  />
+    </div>
+	<label class="col-sm-2">中奖结束时间：</label>
+    <div class="col-sm-1">
+        <input type="text" class="form_datetime form-control" name="lottery_end" value="<?php if(!empty($lottery_start)) {echo date('Y-m-d H:i', $lottery_end);} ?>"  />
+    </div>
+	<label class="col-sm-2">中奖数量（-1表示不限）：</label>
+    <div class="col-sm-1">
+        <input class="form-control" type="number" size="3" name="period_award_amount" value="<?php echo $period_award_amount;?>"  />
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2">中奖概率（同种奖品中奖概率需一致）：</label>
+    <div class="col-sm-10">
+        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control" type="text" size="15" name="probability" value="<?php echo $probability;?>" />
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2">日中奖上限（-1表示不限）：</label>
+    <div class="col-sm-1">
+        <input class="form-control" type="number" size="3" name="award_times_day" value="<?php echo $award_times_day;?>"  />
+    </div>
+    <label class="col-sm-2">单用户中奖上限（-1表示不限）：</label>
+    <div class="col-sm-1">
+        <input class="form-control" type="number" size="3" name="user_award_times" value="<?php echo $user_award_times;?>"  />
+    </div>
+    <label class="col-sm-2">优先级：</label>
+    <div class="col-sm-1">
+        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control" type="text" size="3" name="level" value="<?php echo $level;?>"  />
+    </div>
+</div>
+<div class="form-group ">
+    <div class="col-sm-10 col-lg-offset-2">
+        <input type="submit" class="btn btn-primary btn-sm" value="添加"/>
+        <a href="javascript:history.go(0);" class="btn btn-sm btn-default">取消</a>
+    </div>
+</div>
+</form>
+</div>
+</div>
+
+<block name="script">
+<link href="<?=base_url()?>web/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<link href="<?=base_url()?>web/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<?=base_url()?>web/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="<?=base_url()?>web/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+$(function(){
+    $('.form_datetime').datetimepicker({
+    	formatTime: 'HH:ii',
+    	formatDate: 'yyyy-mm-dd',
+        autoclose: true,
+        todayBtn: true,
+        todayHighlight: true,
+        language: 'zh-CN',
+        pickerPosition: "bottom-left",
+    });
+});
+</script>
+</block>

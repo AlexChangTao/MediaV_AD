@@ -1,0 +1,137 @@
+<script>
+$(function(){
+	$('#account').keyup(function(){
+		var account = $('#account').val();
+		if(account.length >= 5){
+			$.get("<?=base_url('admin/check_account')?>",{"account":account},function(data){
+					if(data == 1){
+						layer.tips(' × 账号已存在', '#account',{tips:1,time: 50000});
+						$('#account_hidden').val(1);
+					}else{
+						layer.tips(' √ 账号可用', '#account',{tips:[1,'#18A689'],time: 10000});
+						$('#account_hidden').val(0);
+					}
+				}, "json");	
+		}
+	});
+	$('#cancel').click(function(){
+		parent.layer.closeAll();
+	});
+});
+function admin_add(){
+	var group_id       = $('#group_id').val();
+	var account        = $('#account').val();
+	var password       = $('#password').val();
+	var password2      = $('#password2').val();
+	var account_hidden = $('#account_hidden').val();
+	if(group_id == ''){
+		layer.tips('请选择用户组', '#group_id',{tips:1,time: 10000});
+		return false;
+	}
+	if(account_hidden == 1){
+		layer.tips('× 账号已存在', '#account',{tips:1,time: 10000});
+		return false;
+	} else {
+		// layer.tips(' √ 账号可用', '#account',{tips:[1,'#18A689'],time: 10000});
+	}
+	if(account == ''){
+		layer.tips('请输入账号', '#account',{tips:1,time: 10000});
+		return false;
+	}
+	if(account.length < 5){
+		layer.tips('账号长度不应低于5位', '#account',{tips:1,time: 10000});
+		return false;
+	}
+	if(password == ''){
+		layer.tips('请输入密码', '#password',{tips:1,time: 10000});
+		return false;
+	}
+	if(password.length < 6){
+		layer.tips('密码长度不应低于6位', '#password',{tips:1,time: 10000});
+		return false;
+	}
+	if(password2 == ''){
+		layer.tips('请再一次输入密码', '#password2',{tips:1,time: 10000});
+		return false;
+	}
+	if(password != password2){
+		layer.tips('两次密码必须一样', '#password2',{tips:1,time: 10000});
+		return false;
+	}
+	$.post('<?=base_url("admin/user_add")?>',{"account":account,"password":password,"group_id":group_id},function(data){
+			if(data == 1){
+				layer.msg('添加成功，正在跳转中...',{icon: 1,time: 2000,shade: [0.8, '#393D49']},function(){
+					parent.window.location.reload();    //刷新父页面
+				});
+			}else if(data == 2){
+				layer.msg('分配用户组失败，请重新分配',{icon: 2,time: 2000},function(){
+					parent.window.location.reload();
+				});
+			}else{
+				layer.msg('添加失败，请重新输入',{icon: 2,time: 2000},function(){
+					window.location.reload();
+				});
+			}
+		}, "json");
+}
+</script>
+<link href="<?=base_url()?>web/select2/select2.css" rel="stylesheet">
+<script src="<?=base_url()?>web/select2/select2.full.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('select').select2();
+});
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>管理员管理</h2>
+    <div class="breadcrumb">
+      <li><a href="<?=base_url('admin/main')?>" class="page-action">首页</a></li>
+      <li>角色管理</li>
+      <li><a href="<?=base_url('admin/admin_list')?>" class="page-action" title="管理员管理">管理员管理</a></li>
+      <li>添加管理员</li>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="ibox-content main_content_margin">
+  <div class="form-group">
+  	<label>账号</label>
+  	<input type="text" name="account" id="account" size="24" placeholder="账号" value="" class="form-control" />
+  	<input type="hidden" id="account_hidden" value="0" />
+  	<p class="help-block">* 长度不低于5位</p>
+  </div>
+  <div class="form-group">
+  	<label>用户组</label>
+  	<select name="group_id" id="group_id" class="form-control">
+  		<option value="">请选择用户组</option>
+  		<?foreach($data as $k=>$v):?>
+  		<option value="<?=$v['id']?>"><?=$v['title']?></option>
+  		<?endforeach;?>
+  	</select>
+  </div>
+  <div class="form-group">
+    <label>广告主</label>
+    <div class="checkbox">
+      <?foreach($advertisers as $k=>$v):?>
+      <label>
+        <input type="checkbox" name="advertisers[]" value="<?=$v['id'];?>"><?=$v['name'];?>&nbsp;&nbsp;
+      </label>
+      <?endforeach;?>
+    </div>
+  </div>
+  <div class="form-group">
+  	<label>密码</label>
+  	<input type="password" name="password" id="password" size="24" value="" class="form-control" />
+  </div>
+  <div class="form-group">
+  	<label>重复密码</label>
+  	<input type="password" name="password2" id="password2" size="24" value="" class="form-control" />
+  </div>
+  <div class="form-group">
+  	<div class="btn-group">
+  		<button type="button" class="btn btn-sm btn-primary" id="button" onclick="admin_add();">确 认</button>
+        <button class="btn btn-default btn-sm" onclick="if(self=='top'){history.go(-1);}else{window.parent.close_actvie_tab();};return false;">取 消</button>
+  	</div>
+  </div>
+</div>

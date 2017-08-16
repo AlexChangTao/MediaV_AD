@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link href="<?=base_url()?>web/test/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=base_url()?>web/test/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="<?=base_url()?>web/test/css/animate.css" rel="stylesheet">
+    <link href="<?=base_url()?>web/test/css/style.css" rel="stylesheet">
+    <script src="<?=base_url()?>web/test/js/jquery-2.1.1.js"></script>
+    <script src="<?=base_url()?>web/js/layer/layer.js"></script>
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+</head>
+<body class="gray-bg">
+    <div class="loginColumns animated fadeInDown">
+        <div class="ibox-content">
+            <div>
+                <p class="m-t"><h2><strong>后台管理系统</strong></h2></p>
+            </div>
+            <form class="m-t" role="form" name="loginform" id="loginform" method="post" action="<?=base_url('login/to_login')?>" onSubmit="return check_login();">
+                <div class="form-group">
+                    <input type="text" name="account" id="account" class="form-control" placeholder="用户名" required="" maxlength="20" />
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="密码" required="" />
+                </div>
+                <div class="form-group">
+                    <input type="text" name="code" id="code" class="form-control" placeholder="验证码" maxlength="4" required="">
+                    <input type="hidden" id="check_code" value="0">
+                </div>
+                <div class="form-group">
+                    <div id="code_img">
+                    <img style="cursor:pointer;" title="点我刷新哦！" src="<?=base_url('login/get_code')?>" onclick="javascript:this.src=this.src+'?time='+Math.random()" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+            </form>
+        </div>
+        <hr/>
+        <div>
+           <p class="m-t">© 2017</p>
+        </div>
+    </div>
+</body>
+<script>
+    $(function(){
+        $('#code').keyup(function(){
+            var code = $('#code').val();
+            if(code.length == 4 && $('#check_code').val() == 0){
+                $.get("<?=base_url('login/check_code')?>", {code:code},function(data){
+                    if(data == 1){
+                        $('#check_code').val(1);
+                        layer.tips('√ 正确，请不要再变动', '#code', {
+                          tips: [2,'#18A689'],
+                          time: 60000
+                        });
+                    }else{
+                        $('#check_code').val(0);
+                        layer.tips('× 输入错误', '#code', {
+                            tips: [2,'#ff0000']
+                        });
+                    }
+                });
+            }
+        });
+    })
+    function check_login(){
+        var account = $('#account').val();
+        var password = $('#password').val();
+        var code = $('#code').val();    //验证码
+        var check_code = $('#check_code').val();    //验证码验证结果
+        if(account == ''){
+            layer.tips('请输入用户名', '#account');
+            return false;
+        }
+        if(password == ''){
+            layer.tips('请输入密码', '#password');
+            return false;
+        }
+        if(code == ''){
+            layer.tips('请输入验证码', '#code');
+            return false;
+        }
+        //if(check_code == 0){
+            //layer.tips('验证码错误', '#code');
+            //return false;
+        //}
+        return true;
+    }
+</script>
+</html>

@@ -1,0 +1,8 @@
+2017-08-16 09:44:10
+a:5:{s:3:"aid";N;s:7:"account";N;s:3:"sql";s:114:"UPDATE `ad_admin` SET `login_ip` = '10.35.128.28', `login_time` = 1502847850, `login_count` = 233
+WHERE `id` = '1'";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-16 09:44:10";}
+
+2017-08-16 10:52:42
+a:5:{s:3:"aid";s:1:"1";s:7:"account";s:5:"admin";s:3:"sql";s:42:"DELETE FROM `ad_log`
+WHERE `id` IN('8022')";s:6:"result";b:1;s:10:"created_at";s:19:"2017-08-16 10:52:42";}
+

@@ -1,0 +1,124 @@
+<style>
+	
+	.add-rule {
+		float: left;
+	}
+</style>
+<div  class="ibox-content col-lg-12">
+<div class="col-lg-10 row wrapper white-bg page-heading">
+<head>
+	<h2>规则设置</h2>
+</head>
+</div>
+<div class="ibox float-e-margins">
+<body>
+		
+		<span class="input-group-btn add-rule">
+			<a href="javascript:;" onclick="add();" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i>&nbsp新增设置</a>
+		</span>
+		<div class="search input-group col-xs-6 col-md-3 col-md-offset-9">
+			<input id="search_reward" class="search form-control" size="30" type="text" name="reward_name" value="<?php echo $_GET['reward_name']; php?>"  placeholder="请输入奖品名称" / >
+			<span class="input-group-btn">
+	            <button class="btn btn-primary btn-search save-search">查找</button>
+	        </span>  
+		</div>
+	
+	<br/ >
+
+	<table class="table table-bordered" id="data-table" data-toggle="table">
+		<thead>
+		  <tr>
+		    <th data-field="id" data-sortable="true">#ID</th>
+		    <th data-field="reward_id" data-sortable="true">奖品名[可排序]</th>
+		    <th>日中奖上限</th>
+		    <th>单用户中奖上限</th>
+		    <th data-field="probability" data-sortable="true">中奖概率（万分之）</th>
+		    <th>优先级</th>
+		    <th>中奖时间段</th>
+		    <th>操作</th>
+		  </tr>
+		  </thead>
+		  <tbody id="data-body">
+			  <?php foreach($rule_list as $rule): php?>
+			  <tr>
+			    <td><?php echo $rule['id']; php?></td>
+			    <td><?php echo $rule['reward_name']; php?></td>
+			    <td><?php echo $rule['award_times_day']; php?></td>
+			    <td><?php echo $rule['user_award_times']; php?></td>
+			    <td><?php echo $rule['probability']; php?></td>
+			    <td><?php echo $rule['level']; php?></td>
+			    <td><?php echo $rule['period_text']; php?></td>
+			    <td><a href="javascript:;" onclick="add(<?php echo $rule['id']; php?>);" class="btn btn-sm btn-primary">编辑</a></td>
+			  </tr>
+			  <?php endforeach; ?>
+		</tbody>
+	</table>
+</body>
+</div>
+</div>
+<block name="script">
+<link href="<?=base_url()?>web/bootstrap-table/bootstrap-table.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<?=base_url()?>web/bootstrap-table/bootstrap-table.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?=base_url()?>web/bootstrap-table/locale/bootstrap-table-zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	// 初始化
+	$(document).ready(function(){
+    	initTable("data-table");
+	});
+	//初始化
+	function initTable(tableId){
+	    $("#" + tableId).bootstrapTable({
+	        search: true,//是否使用搜索
+            pagination: true,//是否使用分页，默认前端分页
+            showRefresh: true,//是否使用刷新按钮，默认没有
+            url: '/lottery_rule/index?activity_id=' + <?php echo $_GET["activity_id"]; php?> ,//后端数据来源地址
+            method: 'get',//后端请求方法
+            cache: false,//是否使用缓存
+            escape: true,//前端自动转义
+            showColumns: true,//换个显示方式
+            showToggle: true,//同上
+            sidePagination: 'server',//分页方式
+            queryParams: ajaxRequest,//请求后端时的数据格式
+            pageSize : 8,//每页大小
+        	pageList : [8, 16, 32, 64]//可以选择每页大小
+	    });
+	}
+
+	//自定义ajax
+	function ajaxRequest(params){
+	    return {
+            limit: params.limit,//每页数据条数
+            offset: params.offset,//当前页偏移
+            order: params.order,//排序
+            order_name: params.sort,//需要排序的字段
+            search: params.search//搜索的字段
+        };
+	}
+	
+	//添加
+	function add(rule_id){
+		// 编辑页面
+		if(rule_id !== null && rule_id !== undefined && rule_id !== '') {
+			var content = '<?=base_url("lottery_rule/edit?activity_id=" . $_GET["activity_id"] . "&id=")?>' + rule_id;
+		}else {
+			// 新增页面
+			var content = '<?=base_url("lottery_rule/edit?activity_id=" . $_GET["activity_id"])?>';
+		}
+		
+		layer.open({
+			type: 2,
+			closeBtn: 2,
+			area: ['600px', '670px'],
+			title: '编辑规则信息',
+			content: content
+		});
+	}
+
+	$('.save-search').on('click',function(){
+		var val = $('#search_reward').val();
+		window.location.href="/lottery_rule/index?activity_id=<?php echo trim($_GET['activity_id']) . '&reward_name='; php?>" + val;
+	});
+</script>
+</block>
+
+

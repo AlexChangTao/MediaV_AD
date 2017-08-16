@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>文章</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                             </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">王昆</strong>
+                             </span> <span class="text-muted text-xs block">管理员 <b class="caret"></b></span> </span> </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="profile.html">个人信息</a></li>
+                                <li><a href="contacts.html">联系方式</a></li>
+                                <li><a href="mailbox.html">邮箱</a></li>
+                                <li class="divider"></li>
+                                <li><a href="login.html">退出登录</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li >
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="index.html">首页 v.1</a></li>
+                            <li><a href="dashboard_2.html">首页 v.2</a></li>
+                            <li><a href="dashboard_3.html">首页 v.3</a></li>
+                            <li><a href="dashboard_4_1.html">首页 v.4</a></li>
+                            <li><a href="dashboard_5.html">首页 v.5 <span class="label label-primary pull-right">NEW</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">布局</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">图表</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="graph_flot.html">Flot Charts</a></li>
+                            <li><a href="graph_morris.html">Morris.js Charts</a></li>
+                            <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
+                            <li><a href="graph_chartjs.html">Chart.js</a></li>
+                            <li><a href="graph_chartist.html">Chartist</a></li>
+                            <li><a href="c3.html">c3 charts</a></li>
+                            <li><a href="graph_peity.html">Peity Charts</a></li>
+                            <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">邮箱 </span><span class="label label-warning pull-right">16/24</span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="mailbox.html">收件箱</a></li>
+                            <li><a href="mail_detail.html">邮件详情</a></li>
+                            <li><a href="mail_compose.html">发送邮件</a></li>
+                            <li><a href="email_template.html">邮件模板</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="metrics.html"><i class="fa fa-pie-chart"></i> <span class="nav-label">指标</span>  </a>
+                    </li>
+                    <li>
+                        <a href="widgets.html"><i class="fa fa-flask"></i> <span class="nav-label">组件</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">表单</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="form_basic.html">基本表单</a></li>
+                            <li><a href="form_advanced.html">高级插件</a></li>
+                            <li><a href="form_wizard.html">分步引导</a></li>
+                            <li><a href="form_file_upload.html">文件上传</a></li>
+                            <li><a href="form_editors.html">富文本编辑</a></li>
+                            <li><a href="form_markdown.html">Markdown</a></li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">APP视图</span>  <span class="pull-right label label-primary">SPECIAL</span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="contacts.html">联系方式</a></li>
+                            <li ><a href="profile.html">个人信息</a></li>
+                            <li ><a href="profile_2.html">个人信息 v.2</a></li>
+                            <li ><a href="contacts_2.html">联系方式 v.2</a></li>
+                            <li ><a href="projects.html">项目列表</a></li>
+                            <li ><a href="project_detail.html">项目详情</a></li>
+                            <li ><a href="teams_board.html">团队面板</a></li>
+                            <li ><a href="social_feed.html">订阅</a></li>
+                            <li><a href="clients.html">客户信息</a></li>
+                            <li  ><a href="full_height.html">Outlook</a></li>
+                            <li ><a href="vote_list.html">投票</a></li>
+                            <li ><a href="file_manager.html">文件管理</a></li>
+                            <li><a href="calendar.html">日历</a></li>
+                            <li ><a href="issue_tracker.html">Issue</a></li>
+                            <li><a href="blog.html">博客</a></li>
+                            <li  class="active"><a href="article.html">文章</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="timeline.html">时间轴</a></li>
+                            <li><a href="pin_board.html">Pin board</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">其他</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="search_results.html">搜索结果</a></li>
+                            <li><a href="lockscreen.html">锁屏</a></li>
+                            <li><a href="invoice.html">发票</a></li>
+                            <li><a href="login.html">登录</a></li>
+                            <li><a href="login_two_columns.html">登录 v.2</a></li>
+                            <li><a href="forgot_password.html">忘记密码</a></li>
+                            <li><a href="register.html">注册</a></li>
+                            <li><a href="404.html">404</a></li>
+                            <li><a href="500.html">500</a></li>
+                            <li><a href="empty_page.html">空白页面</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-globe"></i> <span class="nav-label">杂七杂八</span><span class="label label-info pull-right">NEW</span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="toastr_notifications.html">通知</a></li>
+                            <li><a href="nestable_list.html">嵌套列表</a></li>
+                            <li><a href="agile_board.html">TO-DO LIST</a></li>
+                            <li><a href="timeline_2.html">时间轴 v.2</a></li>
+                            <li><a href="diff.html">文件对比</a></li>
+                            <li><a href="i18support.html">国际化</a></li>
+                            <li><a href="sweetalert.html">弹出框</a></li>
+                            <li><a href="idle_timer.html">计时器</a></li>
+                            <li><a href="truncate.html">截断...</a></li>
+                            <li><a href="spinners.html">菊花</a></li>
+                            <li><a href="tinycon.html">favicon</a></li>
+                            <li><a href="google_maps.html">谷歌地图</a></li>
+                            <li><a href="code_editor.html">代码</a></li>
+                            <li><a href="modal_window.html">模态对话框</a></li>
+                            <li><a href="clipboard.html">剪贴板</a></li>
+                            <li><a href="forum_main.html">论坛</a></li>
+                            <li><a href="validation.html">JS验证</a></li>
+                            <li><a href="tree_view.html">树</a></li>
+                            <li><a href="loading_buttons.html">加载按钮</a></li>
+                            <li><a href="chat_view.html">聊天</a></li>
+                            <li><a href="masonry.html">瀑布流</a></li>
+                            <li><a href="tour.html">教程</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">UI</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="typography.html">段落</a></li>
+                            <li><a href="icons.html">Icons</a></li>
+                            <li><a href="draggable_panels.html">拖拽面板</a></li> <li><a href="resizeable_panels.html">调整大小面板</a></li>
+                            <li><a href="buttons.html">按钮</a></li>
+                            <li><a href="video.html">视频</a></li>
+                            <li><a href="tabs_panels.html">面板</a></li>
+                            <li><a href="tabs.html">Tabs</a></li>
+                            <li><a href="notifications.html">通知 & Tooltips</a></li>
+                            <li><a href="badges_labels.html">徽章, Labels, 进度条</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="grid_options.html"><i class="fa fa-laptop"></i> <span class="nav-label">网格</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">表格</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="table_basic.html">静态表格</a></li>
+                            <li><a href="table_data_tables.html">动态表格</a></li>
+                            <li><a href="table_foo_table.html">高级表格</a></li>
+                            <li><a href="jq_grid.html">jqGrid</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">电子商务</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="ecommerce_products_grid.html">产品-网格</a></li>
+                            <li><a href="ecommerce_product_list.html">产品-列表</a></li>
+                            <li><a href="ecommerce_product.html">产品-编辑</a></li>
+                            <li><a href="ecommerce_product_detail.html">产品-详情</a></li>
+                            <li><a href="ecommerce-cart.html">购物车</a></li>
+                            <li><a href="ecommerce-orders.html">订单</a></li>
+                            <li><a href="ecommerce_payments.html">信用卡</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">画廊</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="basic_gallery.html">灯箱</a></li>
+                            <li><a href="slick_carousel.html">旋转木马</a></li>
+                            <li><a href="carousel.html">Bootstrap 轮播</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">菜单 </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="#">三级菜单 <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">三级菜单标题</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">三级菜单标题</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">三级菜单标题</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li><a href="#">二级菜单标题</a></li>
+                            <li>
+                                <a href="#">二级菜单标题</a></li>
+                            <li>
+                                <a href="#">二级菜单标题</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="css_animation.html"><i class="fa fa-magic"></i> <span class="nav-label">CSS动画 </span><span class="label label-info pull-right">62</span></a>
+                    </li>
+                    <li class="landing_link">
+                        <a target="_blank" href="landing.html"><i class="fa fa-star"></i> <span class="nav-label">着陆页</span> <span class="label label-warning pull-right">NEW</span></a>
+                    </li>
+                    <li class="special_link">
+                        <a href="package.html"><i class="fa fa-database"></i> <span class="nav-label">框架</span></a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">欢迎来到goopay</span>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a href="profile.html" class="pull-left">
+                                    <img alt="image" class="img-circle" src="img/a7.jpg">
+                                </a>
+                                <div class="media-body">
+                                    <small class="pull-right">46小时前</small>
+                                    <strong>李文俊</strong> 关注了 <strong>刘海洋</strong>. <br>
+                                    <small class="text-muted">3 天 前- 10.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a href="profile.html" class="pull-left">
+                                    <img alt="image" class="img-circle" src="img/a4.jpg">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="pull-right text-navy">5小时前</small>
+                                    <strong>王昆</strong> 关注了 <strong>李文俊</strong>. <br>
+                                    <small class="text-muted">昨天下午1:21 - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a href="profile.html" class="pull-left">
+                                    <img alt="image" class="img-circle" src="img/profile.jpg">
+                                </a>
+                                <div class="media-body ">
+                                    <small class="pull-right">23小时前</small>
+                                    <strong>张三</strong> 赞了 <strong>李四</strong>. <br>
+                                    <small class="text-muted">2天前 - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="mailbox.html">
+                                    <i class="fa fa-envelope"></i> <strong>查看更多消息</strong>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="mailbox.html">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> 您有 16 条未读通知
+                                    <span class="pull-right text-muted small">4 分钟 前</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="profile.html">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 个新粉丝
+                                    <span class="pull-right text-muted small">12 分钟 前</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="grid_options.html">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> 服务器重启
+                                    <span class="pull-right text-muted small">4 分钟 前</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="notifications.html">
+                                    <strong>查看更多通知</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-sign-out"></i> 退出登录
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>文章</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a>APP视图</a>
+                        </li>
+                        <li class="active">
+                            <strong>文章</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+        <div class="wrapper wrapper-content  animated fadeInRight article">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div class="pull-right">
+                                <button class="btn btn-white btn-xs" type="button">完美世界</button>
+                                <button class="btn btn-white btn-xs" type="button">小说</button>
+                                <button class="btn btn-white btn-xs" type="button">玄幻</button>
+                            </div>
+                            <div class="text-center article-title">
+                            <span class="text-muted"><i class="fa fa-clock-o"></i> 28th Oct 2015</span>
+                                <h1>
+                                    心已倦
+                                </h1>
+                            </div>
+                            <p>
+                                天地寂静，石昊一个人站立 <strong>一切都结束了吗？两界之战告一段落</strong>, 可是，逝去的人，别离的人，就此不见，那是一生的遗憾，还有伤感，石昊一语不发，无比沉默
+                            </p>
+                            <p>
+                               轰隆！天渊，早已龟裂，在那里焚烧着，那里有红色的汪洋，为规则之海，有因果烈焰沸腾，隔断了两界。在当中有诵经声，有爆炸声，还有金戈铁马喊杀声。石昊被惊醒，霍的抬头，看着前方，在血色的秩序海内，原始帝城爆碎，熊熊燃烧。此外，还有一道模糊的身影，盘坐在那里，口诵真经，身体越发的虚淡，直至将彻底的消失而去。七王中唯一活着的那位王也离世了，肉身成空，元神寂灭，是他引爆了此地，原始帝城坠毁，天渊爆开，如此才成功进行了最后的镇压！时间不会很长，或许只有数百载，法则之海就会消失，而这也是他所能尽到的最后一分力了。
+                            </p>
+                            <p>
+                                <i>
+                                金戈铁马，喊杀震天！那是原始帝城不灭的英灵，在那里嘶吼着，咆哮着，带着曾经的辉煌，在烈火中回首，将要就此烟消云散。原始帝城尽灭！“族人……都死了。”帝关，城墙上，一群孩子在大哭，这是他们见到的最后一幕，生养他们的古城毁掉了，亲人全部战死。从古到今，这座城池一直挡在最前方，镇守边荒，如今，它焚烧殆尽，在荣耀中——消失！城在人在，城亡人亡！那些人，那些家族，尽到了他们最后的诺言，全部魂归战场，英灵血洒落残破城中。
+                                </i>
+                            </p>
+                            <p>
+                                石昊看着这一切，他收起了伤感，目光变得冷冽，火桑林远去，原始帝城坠毁，没有让他消沉，反而激起了他无以伦比的旺盛斗志。“我要变强！”这是他心灵中的呐喊，他要变的更为强大，要一展鲲鹏志，冲霄而上。一声叹息，带着疲惫，带着倦意，天渊下，红色符文火光中，那最后一位王，就此消散。什么都没有留下，封王者，就此终结，再也没有了！这是一个时代的结束！曾经辉煌，曾经璀璨！昔年，一群天纵英杰居于原始帝城，因功绩而封王，光辉照耀天下，令各族敬仰。最后，岁月流逝，万古成烟，这些伟大的族群都相继暗淡了，消亡了。曾经的大功绩者们，都殒落了。一个时代的结束！“我要封王！”石昊大吼，这不是狂妄，而是一种信念，带着杀气的呐喊。所有人都知道，他所谓的封王，是要在废墟中再建，是要杀敌而封王！各族没落，封王者后裔如今分散各地，早已不复当年辉煌，很多都被定为罪血后裔，光环被斩。石昊的呐喊，是他的怒意，也是他的不甘，还有他的气吞山河志。他不仅要杀敌，还要正名，洗刷罪血的耻辱，有些人要为此付出代价！
+                            </p>
+                            <p>
+                                曾经的大功绩者，当年守护这一界的生灵，他们的后代，他们的血脉传承者，怎能沦为罪血族裔？有错，天大的错，需纠正！石昊向帝关走去，他一个踉跄，身体阵阵的虚弱，不久前曾大战，虽然动用的是他化自在大法，借用他人战力，但还是有种虚脱感。不得不说，他化自在大法逆天！到了此时，石昊还在思忖，那是怎样的一种秘法？居然能化来他人战力，演绎在当世，简直不可理解！跨越时间，跨越空间，化来大自在，化来无敌术，实在逆天到极致！哧！帝关上，一道光刷落，将石昊笼罩，径直将他卷进了城中。因为，有不少人担心，怕他出现意外，毕竟现在那滴血消失了，万一不朽之王发疯，再次强攻，那么荒将危矣。当石昊出现在城中，一群人冲了上来，欢呼着，大叫着，那是一群年轻人。拓古驭龙、曹雨生等，直接就将他举起，在那里大吼着，这一战很艰难，也很恐怖，挡住不朽之王，足以撑得上惊世大功勋。石昊被放下，许多人跟他猛力地抱了一抱。此际，就是清漪、魔女彼此都没有敌视，也跟众人一样，毫不避嫌，都给予了他一个热情的拥抱。就是月婵也神色复杂，站在近前，静静的看着。“哇哈哈，太猛了，你真是石小子吗，真是荒？”太阴玉兔叫嚷着，怀疑石昊被夺舍了，捏了捏他的脸颊，想要验证。这里一片欢腾，无比热闹。石昊有喜，也有心酸，虽然暂时阻挡住了不朽的生灵，可是，大祸早晚有一天还要到来。并且，今日一战，他得到了什么，又失去了什么，有些人也许一生都见不到了。当想到这些，石昊眼中发酸。
+                            </p>
+                            <p>
+                               哪怕早已激起战意，可是想到罪州，想到那些人，想到火桑林，他还是难以宁静，恨不得仰天长啸。心有遗憾，眼中发涩，口中发苦，石昊一叹，登上了城墙。他看到了那些孩子，是这一战中原始帝城仅存下来的人。孩子们都在大哭，伤心欲绝。“不要哭，以后我就是你们的亲人，下界有一片净土，有一个名叫石村的地方，那里就是你们的家。”石昊走过去，摸这些孩子的头。他们大的能有十四五岁，小的还站不稳，不太会走路，都已是孤儿，是战者的后代。“你……要回下界？”清漪回头，看向石昊，心中微颤。“倦了，疲了，我想回去，这一战结束后，我要回到生我养我的地方。”石昊答道。的确，石昊很疲倦，不光是肉身的，还有心灵的，自少年时走出大荒，登天而上，从下界来到了三千州，一路勇闯。经历了太多，他的心有些倦了，有些伤感，很想回到那充满欢声笑语的石村。城墙上，许多人沉默，不好规劝。因为，他们看到了，也知道，荒累了，目睹罪州被拔走，他嘶吼着，想要救回火桑林中的女子，可是却无力回天。“大哥哥……”城墙上，一群孩子哭泣着，他们都很悲伤，非常心痛，这一日对他们来说，是最黑暗的一天，亲人都战死了。石昊收起伤感的心绪，尽量露出笑容，一个个抱了抱这些孩子，他们才最可怜！“不要哭，不要伤，我会带你们走，等有朝一日，等你们强大起来时，我带你们去斩了安澜的头颅，为亲人报仇！”石昊说道。“好！”一群孩子抹眼泪，但是，吼出的声音却很大，也很整齐。“我会带你们走向极致辉煌！”石昊低语，很平静，但也很有力。城墙上，不少人都是一惊。罪血一脉，要照耀出怎样的光彩？所有人都心中剧震，有不少强族更是心中不宁，因为有些家族曾参与过一些事。“真的要走吗？”清漪问道，还有其他人也都上前，看着石昊，想要劝说，可却不知道说什么好。石昊眺望，天渊因果火焰滔滔，隔绝了一切。那座城池再也不能出现，它守护了这么久，终究是落幕了。城墙上，许多人也都在遥望着，唯有一声叹息。异域叩关多年，都是那座城抵在最前方！如果没有它，大军早就长驱直入。被攻打多年，它真的坚持不住了，只剩下了最后一个王，注定要在当世坠落。能坚持到这一世，已经很不易！“不朽之王，付出了极大的代价，他们会修养很多年。”城墙上，有人开口。毫无疑问，安澜、俞陀都付出了代价，只要进入天渊，就会受到如同诅咒般的侵蚀，那种影响是持续，要被那种因果之力笼罩很多年。这也是早先时只有安澜破关、其他王者等在后方的原因所在，不敢轻易触之！“结束了吗？一战过后，可以迎来数百年的和平岁月，再也不用忧心了。”有人轻叹，带着无尽的感慨，还有庆幸。轰！天渊，发生剧震，火红的法则之海如鲜血一般汹涌，有一杆兵器古朴而慑人，要斩开那里，截出一条道路来！
+                            </p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <h5>Tags:</h5>
+                                        <button class="btn btn-primary btn-xs" type="button">完美世界</button>
+                                        <button class="btn btn-white btn-xs" type="button">玄幻</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="small text-right">
+                                        <h5>Stats:</h5>
+                                        <div> <i class="fa fa-comments-o"> </i> 56 评论 </div>
+                                        <i class="fa fa-eye"> </i> 144 阅读
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <h2>评论:</h2>
+                                    <div class="social-feed-box">
+                                        <div class="social-avatar">
+                                            <a href="" class="pull-left">
+                                                <img alt="image" src="img/a1.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    Andrew Williams
+                                                </a>
+                                                <small class="text-muted">今天 4:21 pm - 12.06.2014</small>
+                                            </div>
+                                        </div>
+                                        <div class="social-body">
+                                            <p>
+                                                要被那种因果之力笼罩很多年。这也是早先时只有安澜破关、其他王者等在后方的原因所在
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="social-feed-box">
+                                        <div class="social-avatar">
+                                            <a href="" class="pull-left">
+                                                <img alt="image" src="img/a2.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    Michael Novek
+                                                </a>
+                                                <small class="text-muted">今天 4:21 pm - 12.06.2014</small>
+                                            </div>
+                                        </div>
+                                        <div class="social-body">
+                                            <p>
+                                               有人轻叹，带着无尽的感慨，还有庆幸。轰！天渊，发生剧震，火红的法则之海如鲜血一般汹涌，有一杆兵器古朴而慑人，要斩开那里，截出一条道路来！
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="social-feed-box">
+                                        <div class="social-avatar">
+                                            <a href="" class="pull-left">
+                                                <img alt="image" src="img/a3.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    Alice Mediater
+                                                </a>
+                                                <small class="text-muted">今天 4:21 pm - 12.06.2014</small>
+                                            </div>
+                                        </div>
+                                        <div class="social-body">
+                                            <p>
+                                                还有其他人也都上前，看着石昊，想要劝说，可却不知道说什么好。石昊眺望，天渊因果火焰滔滔，隔绝了一切
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="social-feed-box">
+                                        <div class="social-avatar">
+                                            <a href="" class="pull-left">
+                                                <img alt="image" src="img/a5.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    Monica Flex
+                                                </a>
+                                                <small class="text-muted">今天 4:21 pm - 12.06.2014</small>
+                                            </div>
+                                        </div>
+                                        <div class="social-body">
+                                            <p>
+                                                还有其他人也都上前，看着石昊，想要劝说，可却不知道说什么好。石昊眺望，天渊因果火焰滔滔，隔绝了一切
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+</body>
+
+</html>
